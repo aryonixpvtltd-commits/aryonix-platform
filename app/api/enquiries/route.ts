@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { sendEnquiryNotification } from "@/lib/enquiry-email";
+import { getDatabaseHostname } from "@/lib/db-diagnostics";
 import { validateEnquiryPayload } from "@/lib/enquiry-validation";
 import { prisma } from "@/lib/prisma";
 
@@ -16,12 +16,6 @@ export async function POST(request: Request) {
       data: result.data
     });
 
-    await sendEnquiryNotification({
-      ...result.data,
-      id: enquiry.id,
-      createdAt: enquiry.createdAt
-    }).catch(() => ({ ok: false, skipped: false }));
-
     return NextResponse.json(
       {
         ok: true,
@@ -30,7 +24,9 @@ export async function POST(request: Request) {
       },
       { status: 201 }
     );
-  } catch {
+  } catch (error) {
+    console.error("ENQUIRY DATABASE HOST:", getDatabaseHostname());
+    console.error("ENQUIRY API ERROR:", error);
     return NextResponse.json(
       { errors: ["Unable to submit enquiry right now."] },
       { status: 500 }
