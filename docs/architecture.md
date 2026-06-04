@@ -3,10 +3,9 @@
 ## Product Surfaces
 
 - Marketing website: Home, Services, Portfolio, About and Contact.
-- Auth: NextAuth credentials flow with Admin and Client roles.
-- Client dashboard: project status, progress, files, profile and invoices.
-- Admin dashboard: portfolio management, users, enquiries, content and client project status.
-- APIs: projects and enquiries are scaffolded for Prisma-backed persistence.
+- Admin auth: password-only `/admin-login` flow using `ADMIN_PASSWORD` and a signed admin session cookie.
+- Admin dashboard: portfolio management, users, enquiries, content and project operations.
+- APIs: projects and enquiries are scaffolded for Prisma-backed persistence. Public enquiries also trigger Resend notifications.
 
 ## Folder Structure
 
@@ -14,24 +13,23 @@
 app/
   api/
   admin/
-  dashboard/
+  admin-login/
   services/
   portfolio/
   about/
   contact/
-  login/
-  register/
 components/
+  admin/
+  contact/
   sections/
   ui/
 lib/
-  auth.ts
+  admin-session.ts
   content.ts
+  enquiry-email.ts
   prisma.ts
 prisma/
   schema.prisma
-types/
-  next-auth.d.ts
 ```
 
 ## Design System
@@ -47,7 +45,6 @@ The interface uses restrained glass panels, 8-12px radii, blue technical lightin
 
 ## Next Steps
 
-- Wire forms to the API routes with server actions or client submission.
-- Add route protection middleware for `/admin` and `/dashboard`.
+- Continue expanding admin dashboard workflows.
 - Connect Cloudinary upload widgets for portfolio and file assets.
-- Add admin CRUD views once the database is connected.
+- Add deployment environment secrets for `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `ADMIN_EMAIL`, `EMAIL_FROM` and `RESEND_API_KEY`.

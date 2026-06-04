@@ -1,20 +1,21 @@
-import { getServerSession } from "next-auth";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { authOptions } from "@/lib/auth";
+import { ADMIN_SESSION_COOKIE, verifyAdminSessionToken } from "@/lib/admin-session";
 
 export async function requireAdmin() {
   if (process.env.NODE_ENV !== "production" && process.env.SKIP_ADMIN_AUTH === "true") {
     return null;
   }
 
-  const session = await getServerSession(authOptions);
+  const cookieStore = await cookies();
+  const adminToken = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
 
-  if (session?.user?.role !== "ADMIN") {
-    return NextResponse.json(
-      { error: "Admin access required." },
-      { status: 403 }
-    );
+  if (await verifyAdminSessionToken(adminToken)) {
+    return null;
   }
 
-  return null;
+  return NextResponse.json(
+    { error: "Admin access required." },
+    { status: 403 }
+  );
 }

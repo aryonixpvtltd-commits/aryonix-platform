@@ -1,6 +1,5 @@
-import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import { isValidEmail, normalizeEmail, validatePassword } from "@/lib/auth-validation";
+import { isValidEmail, normalizeEmail } from "@/lib/auth-validation";
 import { readString, withAdmin } from "@/lib/admin-crud";
 import { prisma } from "@/lib/prisma";
 
@@ -29,18 +28,15 @@ export async function POST(request: Request) {
   const body = await request.json() as Record<string, unknown>;
   const name = readString(body, "name");
   const email = normalizeEmail(readString(body, "email"));
-  const password = readString(body, "password");
   const errors = [
     ...(name.length < 2 ? ["Client name is required."] : []),
-    ...(!isValidEmail(email) ? ["Valid client email is required."] : []),
-    ...validatePassword(password)
+    ...(!isValidEmail(email) ? ["Valid client email is required."] : [])
   ];
 
   if (errors.length) return NextResponse.json({ errors }, { status: 422 });
 
-  const passwordHash = await bcrypt.hash(password, 12);
   const user = await prisma.user.create({
-    data: { name, email, passwordHash, role: "CLIENT" },
+    data: { name, email, role: "CLIENT" },
     select: { id: true, name: true, email: true, role: true, createdAt: true }
   });
 

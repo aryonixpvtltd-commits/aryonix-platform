@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendEnquiryNotification } from "@/lib/enquiry-email";
 import { validateEnquiryPayload } from "@/lib/enquiry-validation";
 import { prisma } from "@/lib/prisma";
 
@@ -15,11 +16,17 @@ export async function POST(request: Request) {
       data: result.data
     });
 
+    await sendEnquiryNotification({
+      ...result.data,
+      id: enquiry.id,
+      createdAt: enquiry.createdAt
+    }).catch(() => ({ ok: false, skipped: false }));
+
     return NextResponse.json(
       {
         ok: true,
         enquiry,
-        message: "Enquiry received. Aryonix will respond with the next step."
+        message: "Enquiry received. Aryonix will review your brief and respond with the next step."
       },
       { status: 201 }
     );

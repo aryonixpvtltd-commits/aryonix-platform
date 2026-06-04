@@ -217,12 +217,12 @@ export const footerLinks = [
     ]
   },
   {
-    title: "Platform",
+    title: "Operations",
     links: [
-      { label: "Client Login", href: "/login" },
-      { label: "Register", href: "/register" },
-      { label: "Client Dashboard", href: "/dashboard" },
-      { label: "Admin", href: "/admin" }
+      { label: "Start Project", href: "/contact" },
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Services", href: "/services" },
+      { label: "Admin Portal", href: "/admin-login" }
     ]
   }
 ];
@@ -230,6 +230,6 @@ export const footerLinks = [
 export const footerCapabilities = [
   { label: "Next.js", icon: Code2 },
   { label: "MongoDB", icon: Database },
-  { label: "NextAuth", icon: LockKeyhole },
+  { label: "Admin Portal", icon: LockKeyhole },
   { label: "Cloudinary", icon: ArrowUpRight }
 ];

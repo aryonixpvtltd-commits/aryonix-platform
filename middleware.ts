@@ -1,39 +1,29 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
-import { authSecret } from "@/lib/auth-secret";
+import { NextRequest, NextResponse } from "next/server";
+import { ADMIN_SESSION_COOKIE, verifyAdminSessionToken } from "@/lib/admin-session";
 
-export default withAuth(
-  function middleware(request) {
-    const role = request.nextauth.token?.role;
-    const { pathname } = request.nextUrl;
-    const isAdminRoute = pathname.startsWith("/admin");
-    const isClientRoute = pathname.startsWith("/dashboard");
+export default async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
+  const isAdminApiRoute = pathname.startsWith("/api/admin");
 
-    if (isAdminRoute && role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
+  if (isAdminRoute || isAdminApiRoute) {
+    const adminToken = request.cookies.get(ADMIN_SESSION_COOKIE)?.value;
+    const hasAdminSession = await verifyAdminSessionToken(adminToken);
 
-    if (isClientRoute && role === "ADMIN") {
-      return NextResponse.redirect(new URL("/admin", request.url));
-    }
+    if (!hasAdminSession) {
+      if (isAdminApiRoute) {
+        return NextResponse.json({ error: "Admin access required." }, { status: 401 });
+      }
 
-    if (isClientRoute && role !== "CLIENT") {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/admin-login", request.url));
     }
 
     return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => Boolean(token)
-    },
-    pages: {
-      signIn: "/login"
-    },
-    secret: authSecret
   }
-);
+
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ["/admin/:path*", "/dashboard/:path*"]
+  matcher: ["/admin/:path*", "/api/admin/:path*"]
 };

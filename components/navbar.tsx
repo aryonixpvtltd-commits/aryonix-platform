@@ -45,10 +45,7 @@ export function Navbar() {
                 </a>
               ))}
             </div>
-            <Button href="/login" variant="ghost" className="px-3">
-              Login
-            </Button>
-            <Button href="/admin" variant="secondary" className="px-3">
+            <Button href="/admin-login" variant="secondary" className="px-3">
               <LayoutDashboard className="mr-2" size={16} />
               Admin
             </Button>
@@ -91,7 +88,7 @@ export function Navbar() {
             <Button href="/contact" className="mt-2">
               Start Project
             </Button>
-            <Button href="/admin" variant="secondary" className="mt-1">
+            <Button href="/admin-login" variant="secondary" className="mt-1">
               <LayoutDashboard className="mr-2" size={16} />
               Admin Login
             </Button>
