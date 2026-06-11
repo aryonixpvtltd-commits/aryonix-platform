@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDatabaseHostname, getErrorMessage } from "@/lib/db-diagnostics";
+import { getDatabaseHostname, getErrorMessage, getPrismaErrorDiagnostics } from "@/lib/db-diagnostics";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
@@ -14,6 +14,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("DATABASE HEALTH ERROR:", error);
+    console.error("DATABASE HEALTH DIAGNOSTICS:", getPrismaErrorDiagnostics(error));
 
     return NextResponse.json(
       {

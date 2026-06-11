@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { PortfolioRecord } from "@/components/portfolio/portfolio-types";
+import { getFallbackPortfolioProject } from "@/lib/fallback-portfolio";
 
 export function ProjectDetail({ slug }: { slug: string }) {
   const [project, setProject] = useState<PortfolioRecord | null>(null);
@@ -12,10 +13,20 @@ export function ProjectDetail({ slug }: { slug: string }) {
 
   useEffect(() => {
     async function load() {
-      const response = await fetch(`/api/projects/${slug}`);
-      if (response.ok) {
-        setProject(await response.json());
+      const fallback = getFallbackPortfolioProject(slug);
+
+      try {
+        const response = await fetch(`/api/projects/${slug}`);
+
+        if (response.ok) {
+          setProject(await response.json());
+        } else {
+          setProject(fallback);
+        }
+      } catch {
+        setProject(fallback);
       }
+
       setLoading(false);
     }
 

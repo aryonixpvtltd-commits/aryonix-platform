@@ -20,3 +20,18 @@ export function getErrorMessage(error: unknown) {
     return "Unknown error";
   }
 }
+
+export function getPrismaErrorDiagnostics(error: unknown) {
+  if (!error || typeof error !== "object") {
+    return { name: "UnknownError", message: getErrorMessage(error) };
+  }
+
+  const record = error as Record<string, unknown>;
+
+  return {
+    name: typeof record.name === "string" ? record.name : "UnknownError",
+    code: typeof record.code === "string" ? record.code : undefined,
+    message: getErrorMessage(error),
+    meta: record.meta
+  };
+}

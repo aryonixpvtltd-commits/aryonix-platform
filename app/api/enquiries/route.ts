@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDatabaseHostname } from "@/lib/db-diagnostics";
+import { getDatabaseHostname, getPrismaErrorDiagnostics } from "@/lib/db-diagnostics";
 import { validateEnquiryPayload } from "@/lib/enquiry-validation";
 import { prisma } from "@/lib/prisma";
 
@@ -27,6 +27,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("ENQUIRY DATABASE HOST:", getDatabaseHostname());
     console.error("ENQUIRY API ERROR:", error);
+    console.error("ENQUIRY PRISMA DIAGNOSTICS:", getPrismaErrorDiagnostics(error));
     return NextResponse.json(
       { errors: ["Unable to submit enquiry right now."] },
       { status: 500 }
