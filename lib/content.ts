@@ -30,42 +30,120 @@ export const services = [
     description:
       "High-trust websites with sharp layouts, responsive interaction states and brand systems that feel established from the first screen.",
     metric: "Brand-first",
-    icon: Brush
+    icon: Brush,
+    detailedDescription:
+      "Aryonix web design is built for founders, startups and local businesses that need a website to feel credible the moment a visitor lands. The work starts with positioning: what the customer should understand first, what makes the offer trustworthy, and which sections must guide them toward action. From there, we design a premium interface system with sharp typography, responsive spacing, conversion-focused calls to action and motion that supports the message instead of distracting from it. Every page is planned for mobile, tablet and desktop so the experience feels intentional everywhere. We avoid generic agency templates and instead create a design direction that matches the brand, industry and goal of the business. The result is a website that looks modern, loads cleanly, explains the offer fast and gives visitors confidence to enquire, book or buy.",
+    features: [
+      "Homepage and inner page design direction",
+      "Responsive desktop, tablet and mobile layouts",
+      "Conversion-focused section structure",
+      "Brand-aligned typography, spacing and visuals",
+      "Interactive states for buttons, cards and forms"
+    ],
+    technologies: ["Figma", "Next.js", "Tailwind CSS", "Framer Motion", "Responsive Design"],
+    idealClients: ["Startups", "Local businesses", "Founder-led brands", "Service companies"],
+    timeline: "1-2 weeks for a focused website design system",
+    pricing: "Starting at ₹15,000"
   },
   {
     title: "Full Stack Development",
     description:
       "Production-ready apps with clean APIs, secure data flows, dashboards and scalable code foundations.",
     metric: "App-ready",
-    icon: Code2
+    icon: Code2,
+    detailedDescription:
+      "Full Stack Development is for businesses that need more than a static website. Aryonix builds complete digital products with frontend interfaces, backend APIs, database models, admin dashboards and deployment-ready architecture. The process begins by mapping the product workflow: users, roles, forms, data, permissions, content and operational screens. We then build a clean Next.js application with reusable components, server routes and Prisma-backed data models where needed. The focus is not just making features work, but making the system maintainable, understandable and ready for future expansion. Dashboards are designed with real operational use in mind, so admins can manage projects, enquiries, content or records without digging through code. We also pay attention to validation, error states, loading states and performance from the start. The result is a product foundation that can launch quickly while still feeling reliable and professional.",
+    features: [
+      "Frontend and backend implementation",
+      "API routes with validation and error handling",
+      "MongoDB and Prisma data models",
+      "Admin dashboards and management flows",
+      "Deployment-ready production structure"
+    ],
+    technologies: ["Next.js", "React", "TypeScript", "Node.js", "Prisma", "MongoDB"],
+    idealClients: ["SaaS founders", "Dashboard products", "Internal tools", "Businesses with data workflows"],
+    timeline: "3-6 weeks depending on product scope",
+    pricing: "Custom Quote"
   },
   {
     title: "UI/UX Design",
     description:
       "Interface architecture, user journeys, wireframes, prototypes and design systems built around business outcomes.",
     metric: "UX systems",
-    icon: Palette
+    icon: Palette,
+    detailedDescription:
+      "Aryonix UI/UX Design focuses on making digital products easy to understand, attractive to use and aligned with business goals. Before visuals, we clarify the journey: what the user wants, what the business needs, where friction appears and which actions matter most. The work can include wireframes, product flows, dashboard layouts, mobile screens, component systems and polished high-fidelity interfaces. We design for clarity first, then layer in visual craft through hierarchy, spacing, contrast, interaction feedback and motion cues. This is especially useful for startups, SaaS products, admin panels and service platforms where the user must complete tasks without confusion. Every decision is made to reduce cognitive load and make the product feel premium, fast and trustworthy. The final output gives developers a clear blueprint and gives stakeholders a product experience they can review before engineering begins.",
+    features: [
+      "User journey and screen flow planning",
+      "Wireframes and high-fidelity UI screens",
+      "Dashboard and product interface systems",
+      "Reusable component and layout patterns",
+      "Prototype-ready interaction planning"
+    ],
+    technologies: ["Figma", "Design Systems", "Prototyping", "Responsive UX", "Accessibility Basics"],
+    idealClients: ["SaaS products", "Mobile-first tools", "Dashboards", "Early-stage product teams"],
+    timeline: "1-3 weeks based on number of screens",
+    pricing: "Starting at ₹12,000"
   },
   {
     title: "Business Websites",
     description:
       "Premium company sites that communicate credibility, explain the offer clearly and convert serious visitors.",
     metric: "Lead-focused",
-    icon: LayoutDashboard
+    icon: LayoutDashboard,
+    detailedDescription:
+      "Business Websites are built for companies that need a serious online presence, not just a digital brochure. Aryonix structures these websites around trust, clarity and lead generation. We define the offer, organize the services, highlight proof, add strong calls to action and create a visual system that makes the company feel established. This service is ideal for agencies, consultants, local service providers, B2B companies, clinics, gyms, educators and professional brands. Pages can include home, services, about, portfolio, testimonials, FAQs and contact sections. The design is premium and conversion-aware, but still easy for visitors to scan. We also make sure the site performs well on mobile, because many business enquiries start from phones. The final website helps visitors understand what you do, why they should trust you and how to contact you without friction.",
+    features: [
+      "Business-focused homepage structure",
+      "Service pages and conversion sections",
+      "Trust signals, testimonials and proof blocks",
+      "Contact and enquiry form integration",
+      "SEO-friendly page structure"
+    ],
+    technologies: ["Next.js", "Tailwind CSS", "React", "SEO Metadata", "Analytics-ready Structure"],
+    idealClients: ["Service businesses", "Consultants", "B2B companies", "Local companies"],
+    timeline: "2-4 weeks for a complete business website",
+    pricing: "Starting at ₹20,000"
   },
   {
     title: "Portfolio Websites",
     description:
       "Distinct creator and professional portfolios with case-study storytelling, editorial pacing and optimized media.",
     metric: "Story-led",
-    icon: Sparkles
+    icon: Sparkles,
+    detailedDescription:
+      "Portfolio Websites are designed to make a person, studio or brand look memorable and professionally credible. Aryonix builds portfolios that go beyond a simple gallery by shaping the story behind the work: who you are, what you build, what problems you solve and why clients or employers should trust you. The structure can include a strong hero, featured work, project detail pages, skills, timeline, testimonials, social links and a direct contact path. Visual style is tailored to the personality of the creator while keeping the interface polished and easy to navigate. For designers, developers, freelancers, creators and students, a portfolio should feel like proof of taste and execution. We optimize screenshots, project cards and case study layouts so your work is easy to inspect. The result is a portfolio that feels premium, personal and built to create opportunities.",
+    features: [
+      "Personal brand and hero direction",
+      "Featured project showcase",
+      "Case study or project detail pages",
+      "Skills, social links and contact sections",
+      "Optimized media and responsive galleries"
+    ],
+    technologies: ["Next.js", "React", "Tailwind CSS", "Image Optimization", "Framer Motion"],
+    idealClients: ["Developers", "Designers", "Freelancers", "Creators", "Students"],
+    timeline: "1-3 weeks depending on project depth",
+    pricing: "Starting at ₹10,000"
   },
   {
     title: "Website Maintenance",
     description:
       "Ongoing performance tuning, content updates, security checks, backups and support after launch.",
     metric: "Always-on",
-    icon: Wrench
+    icon: Wrench,
+    detailedDescription:
+      "Website Maintenance keeps your website healthy after launch so it does not slowly become outdated, broken or slow. Aryonix supports businesses with content updates, design refinements, bug fixes, dependency checks, performance improvements and small feature additions. This service is useful when you already have a website but need someone technical to keep it reliable without rebuilding everything every month. We can update service text, add new portfolio items, improve page speed, adjust forms, fix layout issues and keep the website aligned with new business goals. Maintenance also protects the brand experience: broken links, stale content and poor mobile behavior can reduce trust quickly. With ongoing support, your website remains usable, current and ready for campaigns, enquiries and customer visits. It is the calm, practical layer that keeps the digital presence working while you focus on the business.",
+    features: [
+      "Content updates and page refinements",
+      "Bug fixes and responsive layout repairs",
+      "Performance and image optimization",
+      "Form, link and interaction checks",
+      "Small feature improvements after launch"
+    ],
+    technologies: ["Next.js", "React", "Performance Audits", "SEO Checks", "Cloudinary"],
+    idealClients: ["Existing website owners", "Growing businesses", "Content-heavy brands", "Launch-stage startups"],
+    timeline: "Monthly support or task-based turnaround",
+    pricing: "Starting at ₹5,000/month"
   }
 ];
 
