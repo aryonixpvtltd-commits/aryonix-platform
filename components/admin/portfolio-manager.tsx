@@ -1,7 +1,8 @@
 "use client";
 
-import { Edit3, ImagePlus, Plus, Save, Search, Trash2, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { AlertCircle, CheckCircle2, Edit3, ImagePlus, Loader2, Plus, Save, Search, Trash2, X } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { PortfolioCategory, PortfolioRecord, PortfolioScreenshot } from "@/components/portfolio/portfolio-types";
 
@@ -25,6 +26,11 @@ type ProjectFormState = {
   featured: boolean;
   published: boolean;
   screenshots: PortfolioScreenshot[];
+};
+
+type UploadToast = {
+  type: "success" | "error";
+  message: string;
 };
 
 const emptyForm: ProjectFormState = {
@@ -103,6 +109,9 @@ export function PortfolioManager() {
   const [categoryName, setCategoryName] = useState("");
   const [status, setStatus] = useState("Loading portfolio...");
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadToast, setUploadToast] = useState<UploadToast | null>(null);
+  const uploadInputRef = useRef<HTMLInputElement>(null);
 
   async function load() {
     const [projectsResponse, categoriesResponse] = await Promise.all([
@@ -151,33 +160,76 @@ export function PortfolioManager() {
 
   async function uploadScreenshots(files: FileList | null) {
     if (!files?.length) return;
-    const body = new FormData();
-    Array.from(files).forEach((file) => body.append("files", file));
-    setStatus("Uploading screenshots...");
+    const selectedFiles = Array.from(files);
+    const allowedTypes = ["image/png", "image/jpeg", "image/webp"];
+    const invalidFile = selectedFiles.find((file) => !allowedTypes.includes(file.type));
 
-    const response = await fetch("/api/admin/uploads", {
-      method: "POST",
-      body
-    });
-
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      setStatus(error.error ?? "Upload failed. Check Cloudinary configuration.");
+    if (invalidFile) {
+      const message = "Only PNG, JPG, JPEG and WEBP screenshots can be uploaded.";
+      console.error("Portfolio screenshot upload blocked:", invalidFile.name, invalidFile.type);
+      setStatus(message);
+      setUploadToast({ type: "error", message });
+      if (uploadInputRef.current) uploadInputRef.current.value = "";
       return;
     }
 
-    const data = await response.json();
-    setForm((current) => ({
-      ...current,
-      screenshots: [
-        ...current.screenshots,
-        ...data.uploads.map((item: PortfolioScreenshot, index: number) => ({
-          ...item,
-          order: current.screenshots.length + index
-        }))
-      ]
-    }));
-    setStatus("Screenshots uploaded.");
+    const body = new FormData();
+    selectedFiles.forEach((file) => body.append("files", file));
+    setUploading(true);
+    setStatus("Uploading screenshots...");
+    setUploadToast(null);
+
+    try {
+      const response = await fetch("/api/admin/uploads", {
+        method: "POST",
+        body
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        const message = data?.error ?? "Upload failed. Check Cloudinary configuration.";
+        console.error("Portfolio screenshot upload failed:", {
+          status: response.status,
+          message
+        });
+        setStatus(message);
+        setUploadToast({ type: "error", message });
+        return;
+      }
+
+      const uploads = Array.isArray(data?.uploads) ? data.uploads as PortfolioScreenshot[] : [];
+      if (!uploads.length) {
+        const message = "Upload completed, but Cloudinary did not return any screenshot URLs.";
+        console.error("Portfolio screenshot upload returned no uploads:", data);
+        setStatus(message);
+        setUploadToast({ type: "error", message });
+        return;
+      }
+
+      setForm((current) => ({
+        ...current,
+        screenshots: [
+          ...current.screenshots,
+          ...uploads.map((item, index) => ({
+            ...item,
+            order: current.screenshots.length + index
+          }))
+        ]
+      }));
+
+      const message = uploads.length === 1 ? "Screenshot uploaded." : `${uploads.length} screenshots uploaded.`;
+      setStatus(message);
+      setUploadToast({ type: "success", message });
+    } catch (error) {
+      const message = "Upload failed before reaching Cloudinary. Check the console and try again.";
+      console.error("Portfolio screenshot upload request error:", error);
+      setStatus(message);
+      setUploadToast({ type: "error", message });
+    } finally {
+      setUploading(false);
+      if (uploadInputRef.current) uploadInputRef.current.value = "";
+    }
   }
 
   async function saveProject() {
@@ -253,6 +305,24 @@ export function PortfolioManager() {
 
         {status ? (
           <div className="panel mt-8 rounded-2xl p-4 text-sm text-accent">{status}</div>
+        ) : null}
+
+        {uploadToast ? (
+          <div
+            role="status"
+            aria-live="polite"
+            className={`fixed right-5 top-24 z-50 flex max-w-sm items-start gap-3 rounded-2xl border px-4 py-3 text-sm shadow-glow backdrop-blur-xl ${
+              uploadToast.type === "success"
+                ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-100"
+                : "border-red-400/30 bg-red-500/10 text-red-100"
+            }`}
+          >
+            {uploadToast.type === "success" ? <CheckCircle2 className="mt-0.5 shrink-0" size={17} /> : <AlertCircle className="mt-0.5 shrink-0" size={17} />}
+            <span>{uploadToast.message}</span>
+            <button onClick={() => setUploadToast(null)} className="ml-auto text-current/70 hover:text-current" aria-label="Dismiss upload message">
+              <X size={15} />
+            </button>
+          </div>
         ) : null}
 
         <div className="mt-8 grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
@@ -358,20 +428,58 @@ export function PortfolioManager() {
 
             <div className="mt-6 rounded-2xl border border-line bg-white/[0.035] p-4">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <h3 className="font-semibold text-text">Screenshots Gallery</h3>
-                <label className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border border-line px-4 text-sm text-accent hover:text-text">
-                  <ImagePlus className="mr-2" size={16} /> Upload
-                  <input type="file" multiple accept="image/*" onChange={(event) => uploadScreenshots(event.target.files)} className="hidden" />
+                <div>
+                  <h3 className="font-semibold text-text">Screenshots Gallery</h3>
+                  <p className="mt-1 text-xs text-accent">Upload PNG, JPG, JPEG or WEBP files, or paste screenshot URLs manually.</p>
+                </div>
+                <label
+                  className={`inline-flex h-10 items-center justify-center rounded-xl border border-line px-4 text-sm transition ${
+                    uploading
+                      ? "cursor-not-allowed bg-white/[0.03] text-accent/60"
+                      : "cursor-pointer text-accent hover:border-secondary/60 hover:text-text"
+                  }`}
+                >
+                  {uploading ? <Loader2 className="mr-2 animate-spin" size={16} /> : <ImagePlus className="mr-2" size={16} />}
+                  {uploading ? "Uploading..." : "Upload"}
+                  <input
+                    ref={uploadInputRef}
+                    type="file"
+                    multiple
+                    accept="image/png,image/jpeg,image/jpg,image/webp"
+                    disabled={uploading}
+                    onChange={(event) => uploadScreenshots(event.target.files)}
+                    className="hidden"
+                  />
                 </label>
               </div>
               <div className="mt-4 grid gap-3">
                 {form.screenshots.map((screenshot, index) => (
-                  <div key={index} className="grid gap-2 md:grid-cols-[1fr_0.7fr_auto]">
-                    <input value={screenshot.url} onChange={(event) => updateScreenshot(index, "url", event.target.value)} placeholder="Screenshot URL" className="h-11 rounded-xl border border-line bg-white/[0.04] px-3 text-sm outline-none focus:border-secondary" />
-                    <input value={screenshot.alt} onChange={(event) => updateScreenshot(index, "alt", event.target.value)} placeholder="Alt text" className="h-11 rounded-xl border border-line bg-white/[0.04] px-3 text-sm outline-none focus:border-secondary" />
-                    <button onClick={() => updateField("screenshots", form.screenshots.filter((_, itemIndex) => itemIndex !== index))} className="grid size-11 place-items-center rounded-xl border border-line text-accent hover:text-red-200" aria-label="Remove screenshot">
-                      <Trash2 size={15} />
-                    </button>
+                  <div key={index} className="rounded-2xl border border-line bg-black/10 p-3">
+                    <div className="grid gap-3 md:grid-cols-[160px_1fr_auto]">
+                      <div className="overflow-hidden rounded-xl border border-line bg-white/[0.03]">
+                        {screenshot.url ? (
+                          <Image
+                            src={screenshot.url}
+                            alt={screenshot.alt || "Portfolio screenshot preview"}
+                            width={320}
+                            height={180}
+                            unoptimized
+                            className="aspect-video h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="grid aspect-video place-items-center px-4 text-center text-xs text-accent">
+                            Preview appears after upload or URL paste.
+                          </div>
+                        )}
+                      </div>
+                      <div className="grid gap-2">
+                        <input value={screenshot.url} onChange={(event) => updateScreenshot(index, "url", event.target.value)} placeholder="Screenshot URL" className="h-11 rounded-xl border border-line bg-white/[0.04] px-3 text-sm outline-none focus:border-secondary" />
+                        <input value={screenshot.alt} onChange={(event) => updateScreenshot(index, "alt", event.target.value)} placeholder="Alt text" className="h-11 rounded-xl border border-line bg-white/[0.04] px-3 text-sm outline-none focus:border-secondary" />
+                      </div>
+                      <button onClick={() => updateField("screenshots", form.screenshots.filter((_, itemIndex) => itemIndex !== index))} className="grid size-11 place-items-center rounded-xl border border-line text-accent hover:text-red-200" aria-label="Remove screenshot">
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
                   </div>
                 ))}
                 <button onClick={() => updateField("screenshots", [...form.screenshots, { url: "", alt: "", order: form.screenshots.length }])} className="h-11 rounded-xl border border-line text-sm text-accent hover:text-text">
