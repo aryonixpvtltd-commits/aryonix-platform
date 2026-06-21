@@ -61,12 +61,26 @@ export function ProjectCard({
           ))}
         </div>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <Link href={`/portfolio/${project.slug}`} className="inline-flex min-h-10 items-center justify-center rounded-xl border border-secondary/40 bg-primary/15 px-4 py-2 text-center text-sm font-semibold text-text transition hover:bg-primary/25">
-            View Project
-          </Link>
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-10 items-center justify-center rounded-xl border border-secondary/40 bg-primary/15 px-4 py-2 text-center text-sm font-semibold text-text transition hover:bg-primary/25"
+            >
+              Learn More <ExternalLink className="ml-2" size={16} />
+            </a>
+          ) : (
+            <Link href={`/portfolio/${project.slug}`} className="inline-flex min-h-10 items-center justify-center rounded-xl border border-secondary/40 bg-primary/15 px-4 py-2 text-center text-sm font-semibold text-text transition hover:bg-primary/25">
+              Learn More
+            </Link>
+          )}
           <div className="flex flex-wrap gap-2">
+            <Link className="inline-flex min-h-10 items-center justify-center rounded-xl border border-line px-4 py-2 text-center text-sm font-semibold text-accent transition hover:border-secondary/50 hover:text-text" href={`/portfolio/${project.slug}`}>
+              Case Study
+            </Link>
             {project.liveUrl ? (
-              <a className="grid size-10 place-items-center rounded-xl border border-line text-accent transition hover:border-secondary/50 hover:text-text" href={project.liveUrl} aria-label="Live demo">
+              <a className="grid size-10 place-items-center rounded-xl border border-line text-accent transition hover:border-secondary/50 hover:text-text" href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`${project.title} live website`}>
                 <ExternalLink size={17} />
               </a>
             ) : null}

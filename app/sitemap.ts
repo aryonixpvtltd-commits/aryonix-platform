@@ -4,10 +4,10 @@ import { siteConfig } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = ["", "/services", "/portfolio", "/about", "/contact"];
   const projectRoutes = [
+    "/portfolio/figma-react-assignment",
+    "/portfolio/neural-city-aqi-dashboard",
+    "/portfolio/academic-gpa-cgpa-calculator",
     "/portfolio/student-toolkit",
-    "/portfolio/cgpa-calculator",
-    "/portfolio/aqi-dashboard",
-    "/portfolio/aryonix-platform"
   ];
 
   return [...routes, ...projectRoutes].map((route) => ({

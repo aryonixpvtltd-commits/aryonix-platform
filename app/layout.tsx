@@ -13,12 +13,15 @@ export const metadata: Metadata = {
     template: "%s | ARYONIX"
   },
   description:
-    "ARYONIX designs, develops and deploys premium websites, business platforms and custom web applications for startups and growing businesses.",
+    "ARYONIX is a premium digital agency for startup websites, business websites, e-commerce experiences and custom web applications.",
   keywords: [
     "Aryonix",
     "premium web development",
     "startup website agency",
     "custom web application development",
+    "e-commerce website development",
+    "premium agency website",
+    "website pricing packages",
     "Next.js agency",
     "UI UX design",
     "full stack development",
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ARYONIX | Premium Website and Web Application Agency",
     description:
-      "Premium digital agency for startup websites, business platforms, custom applications and conversion-focused product experiences.",
+      "Premium digital agency for startup websites, business websites, e-commerce experiences, custom applications and conversion-focused product launches.",
     url: siteConfig.url,
     siteName: "ARYONIX",
     type: "website",
@@ -60,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ARYONIX | Premium Web Development Studio",
     description:
-      "Premium websites and custom web applications for startups and growing businesses.",
+      "Premium websites, e-commerce experiences and custom web applications for startups and growing businesses.",
     images: ["/brand/aryonix-banner.png"]
   }
 };

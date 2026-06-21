@@ -43,8 +43,8 @@ export function PortfolioShowcase() {
             className="panel grid gap-3 rounded-2xl p-4 sm:grid-cols-3"
           >
             {[
-              ["2", "Live demos"],
-              ["15", "Product screens"],
+              ["4", "Live demos"],
+              ["21", "Product screens"],
               ["100%", "Built by Aryonix"]
             ].map(([value, label]) => (
               <div key={label} className="rounded-xl border border-line bg-white/[0.04] p-4">
@@ -147,7 +147,7 @@ export function PortfolioShowcase() {
                     target="_blank"
                     className="inline-flex min-h-11 items-center justify-center rounded-xl border border-secondary/40 bg-primary/15 px-4 py-2 text-center text-sm font-semibold text-text transition hover:-translate-y-0.5 hover:bg-primary/25 hover:shadow-[0_0_24px_rgba(26,111,255,0.25)]"
                   >
-                    View Project <ExternalLink className="ml-2" size={16} />
+                    Learn More <ExternalLink className="ml-2" size={16} />
                   </Link>
                   <a
                     href={project.github}

@@ -7,6 +7,27 @@ import { ProjectCard } from "@/components/portfolio/project-card";
 import type { PortfolioCategory, PortfolioRecord } from "@/components/portfolio/portfolio-types";
 import { fallbackPortfolioProjects } from "@/lib/fallback-portfolio";
 
+const retiredProjectSlugs = new Set(["cgpa-calculator", "aqi-dashboard", "aryonix-platform"]);
+
+function filterProjects(projects: PortfolioRecord[], query: string, category: string) {
+  return projects.filter((project) => {
+    const matchesQuery = query
+      ? `${project.title} ${project.summary} ${project.description}`.toLowerCase().includes(query.toLowerCase())
+      : true;
+    const matchesCategory = category === "all" || project.category?.slug === category;
+    return matchesQuery && matchesCategory;
+  });
+}
+
+function mergeCuratedProjects(apiProjects: PortfolioRecord[], query: string, category: string) {
+  const curatedSlugs = new Set(fallbackPortfolioProjects.map((project) => project.slug));
+  const additionalProjects = apiProjects.filter(
+    (project) => !curatedSlugs.has(project.slug) && !retiredProjectSlugs.has(project.slug)
+  );
+
+  return filterProjects([...fallbackPortfolioProjects, ...additionalProjects], query, category);
+}
+
 export function PortfolioBrowser() {
   const [projects, setProjects] = useState<PortfolioRecord[]>(fallbackPortfolioProjects);
   const [categories, setCategories] = useState<PortfolioCategory[]>([]);
@@ -28,28 +49,9 @@ export function PortfolioBrowser() {
 
       if (projectsResponse.ok) {
         const data = await projectsResponse.json();
-        const fallback = fallbackPortfolioProjects.filter((project) => {
-          const matchesQuery = query
-            ? `${project.title} ${project.summary} ${project.description}`
-                .toLowerCase()
-                .includes(query.toLowerCase())
-            : true;
-          const matchesCategory = category === "all" || project.category?.slug === category;
-          return matchesQuery && matchesCategory;
-        });
-        setProjects(data.length ? data : fallback);
+        setProjects(mergeCuratedProjects(data, query, category));
       } else {
-        setProjects(
-          fallbackPortfolioProjects.filter((project) => {
-            const matchesQuery = query
-              ? `${project.title} ${project.summary} ${project.description}`
-                  .toLowerCase()
-                  .includes(query.toLowerCase())
-              : true;
-            const matchesCategory = category === "all" || project.category?.slug === category;
-            return matchesQuery && matchesCategory;
-          })
-        );
+        setProjects(filterProjects(fallbackPortfolioProjects, query, category));
       }
 
       if (categoriesResponse.ok) {

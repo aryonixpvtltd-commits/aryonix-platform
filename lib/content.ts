@@ -149,60 +149,95 @@ export const services = [
 
 export const projects = [
   {
+    slug: "figma-react-assignment",
+    title: "Figma React Assignment",
+    category: "Agency Website",
+    description:
+      "A polished React implementation of an editorial agency website with premium spacing, service storytelling, testimonials and a clean conversion path.",
+    problem: "The design needed to feel close to a real agency landing page while staying responsive, readable and faithful to the Figma direction.",
+    solution: "ARYONIX translated the visual system into a sharp React experience with large typography, service sections, proof blocks and smooth page rhythm.",
+    results: "The finished site demonstrates front-end execution, design fidelity and a client-ready agency presentation style.",
+    result: "Editorial agency landing page",
+    accent: "from-violet-300 to-blue-700",
+    stack: ["React", "TypeScript", "Responsive UI", "Vercel"],
+    live: "https://figma-react-assignment-mocha.vercel.app/",
+    github: "https://github.com/aryonixpvtltd-commits/figma-react-assignment",
+    screenshot: "/portfolio/figma-react-assignment-hero.png",
+    screenshots: [
+      "/portfolio/figma-react-assignment-hero.png",
+      "/portfolio/figma-react-assignment-process.png",
+      "/portfolio/figma-react-assignment-team.png",
+      "/portfolio/figma-react-assignment-case.png",
+      "/portfolio/figma-react-assignment-services.png",
+      "/portfolio/figma-react-assignment-testimonials.png",
+      "/portfolio/figma-react-assignment-footer.png"
+    ]
+  },
+  {
+    slug: "neural-city-aqi-dashboard",
+    title: "Neural City AQI Dashboard",
+    category: "Civic Data Dashboard",
+    description:
+      "A responsive public-data dashboard for comparing Indian city AQI, ranking pollution levels and explaining dataset methodology clearly.",
+    problem: "Air-quality data can be difficult to scan when rankings, categories, comparisons and methodology are separated.",
+    solution: "ARYONIX built a clear dashboard with city rankings, AQI cards, chart comparison, dataset notes and responsive data layouts.",
+    results: "The dashboard turns environmental data into a presentation-ready civic insight surface for citizens and municipal stakeholders.",
+    result: "Civic analytics surface",
+    accent: "from-emerald-300 to-cyan-700",
+    stack: ["Next.js", "TypeScript", "Recharts", "Data Visualization", "Vercel"],
+    live: "https://neural-city-aqi-dashboard.vercel.app/",
+    github: "https://github.com/aryonixpvtltd-commits/neural-city-aqi-dashboard",
+    screenshot: "/portfolio/aqi-dashboard-hero.png",
+    screenshots: [
+      "/portfolio/aqi-dashboard-hero.png",
+      "/portfolio/aqi-dashboard-ranking.png",
+      "/portfolio/aqi-dashboard-methodology.png"
+    ]
+  },
+  {
+    slug: "academic-gpa-cgpa-calculator",
+    title: "Academic GPA & CGPA Calculator",
+    category: "Education Tool",
+    description:
+      "A student-focused GPA and CGPA calculator with grading-scale selection, semester inputs, validation and instant academic results.",
+    problem: "Students need fast grade planning, but many calculators are cluttered, unclear on mobile or missing university-specific grading context.",
+    solution: "ARYONIX designed a focused calculator flow with clean inputs, browser-saved entries and readable result cards.",
+    results: "The tool gives students a faster way to estimate semester GPA, cumulative CGPA and percentage with confidence.",
+    result: "Academic calculation flow",
+    accent: "from-sky-300 to-blue-700",
+    stack: ["React", "TypeScript", "Tailwind CSS", "Form UX"],
+    live: "https://academic-gpa-cgpa-calculator.vercel.app/",
+    github: "https://github.com/aryonixpvtltd-commits/academic-gpa-cgpa-calculator",
+    screenshot: "/portfolio/academic-gpa-cgpa-calculator.png",
+    screenshots: ["/portfolio/academic-gpa-cgpa-calculator.png"]
+  },
+  {
     slug: "student-toolkit",
     title: "Student Toolkit",
     category: "Student Productivity",
     description:
-      "A focused academic utility suite for planning study work, organizing notes, managing tasks and keeping student workflows in one clean interface.",
-    result: "Student workflow hub",
-    accent: "from-blue-300 to-cyan-700",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Responsive UI"],
-    live: "/demos/student-toolkit.html",
-    github: "https://github.com/aryonixpvtltd-commits",
-    screenshot: "/portfolio/student-toolkit.svg",
-    screenshots: ["/portfolio/student-toolkit.svg"]
-  },
-  {
-    slug: "cgpa-calculator",
-    title: "CGPA Calculator",
-    category: "Education Tool",
-    description:
-      "A responsive academic calculator with clear semester inputs, validation states and fast CGPA output for students who need quick grade planning.",
-    result: "Academic calculation flow",
-    accent: "from-sky-300 to-blue-700",
-    stack: ["React", "TypeScript", "Tailwind CSS", "Form UX"],
-    live: "/demos/cgpa-calculator.html",
-    github: "https://github.com/aryonixpvtltd-commits",
-    screenshot: "/portfolio/cgpa-calculator.svg",
-    screenshots: ["/portfolio/cgpa-calculator.svg"]
-  },
-  {
-    slug: "aqi-dashboard",
-    title: "AQI Dashboard",
-    category: "Civic Data Dashboard",
-    description:
-      "A civic-tech air-quality dashboard for ranking cities, reading AQI categories, comparing pollution patterns and exporting clean data views.",
-    result: "Civic analytics surface",
-    accent: "from-emerald-300 to-cyan-700",
-    stack: ["Next.js", "TypeScript", "Recharts", "CSV Export", "Responsive Data UI"],
-    live: "/demos/aqi-dashboard.html",
-    github: "https://github.com/aryonixpvtltd-commits",
-    screenshot: "/portfolio/aqi-dashboard.svg",
-    screenshots: ["/portfolio/aqi-dashboard.svg"]
-  },
-  {
-    slug: "aryonix-platform",
-    title: "Aryonix Platform",
-    category: "Agency Platform",
-    description:
-      "The ARYONIX production platform with premium public pages, admin portfolio management, Cloudinary uploads, enquiries and MongoDB-backed workflows.",
-    result: "Agency operating system",
-    accent: "from-blue-400 to-indigo-700",
-    stack: ["Next.js 15", "TypeScript", "MongoDB", "Prisma", "Cloudinary"],
-    live: "/",
-    github: "https://github.com/aryonixpvtltd-commits",
-    screenshot: "/portfolio/aryonix-platform.svg",
-    screenshots: ["/portfolio/aryonix-platform.svg"]
+      "A premium academic dashboard with CGPA, attendance, percentage, study planner and exam countdown tools in one student workspace.",
+    problem: "Students often jump between separate calculators and planners, which makes academic tracking scattered and repetitive.",
+    solution: "ARYONIX built a dark, responsive toolkit with five focused utilities, instant result cards, copy actions and clean tool navigation.",
+    results: "The final toolkit feels fast, modern and practical for everyday academic planning without login friction.",
+    result: "Five-tool academic workspace",
+    accent: "from-teal-300 to-emerald-800",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Client-side Tools"],
+    live: "https://student-toolkit-two.vercel.app/",
+    github: "https://github.com/aryonixpvtltd-commits/student-toolkit",
+    screenshot: "/portfolio/student-toolkit-hero.png",
+    screenshots: [
+      "/portfolio/student-toolkit-hero.png",
+      "/portfolio/student-toolkit-tools.png",
+      "/portfolio/student-toolkit-cgpa.png",
+      "/portfolio/student-toolkit-attendance.png",
+      "/portfolio/student-toolkit-percentage.png",
+      "/portfolio/student-toolkit-study-planner.png",
+      "/portfolio/student-toolkit-countdown.png",
+      "/portfolio/student-toolkit-trust.png",
+      "/portfolio/student-toolkit-about.png",
+      "/portfolio/student-toolkit-faq.png"
+    ]
   }
 ];
 
@@ -238,14 +273,6 @@ export const process = [
       "We build reusable Next.js components, API routes, database workflows, admin surfaces and performance-minded frontend code.",
     icon: GitBranch,
     outputs: ["Next.js app", "API layer", "Admin workflows"]
-  },
-  {
-    label: "Testing",
-    title: "QA and responsive testing",
-    detail:
-      "We test mobile, tablet, desktop, forms, modals, navigation, content states and deployment readiness before handoff.",
-    icon: Code2,
-    outputs: ["Responsive QA", "Form testing", "Build checks"]
   },
   {
     label: "Launch",

@@ -1,6 +1,7 @@
 "use client";
 
-import { AlertCircle, CheckCircle2, Loader2, Paperclip, Send } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle, CheckCircle2, Loader2, Paperclip, Send, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +18,9 @@ const budgetOptions = [
 const projectTypes = [
   "Starter Website",
   "Business Website",
-  "Custom Web Application",
+  "Premium Custom Website",
+  "E-commerce Website",
+  "Custom Quote",
   "Portfolio Website",
   "UI/UX Design",
   "Maintenance / Improvements"
@@ -51,10 +54,12 @@ export function ContactForm() {
       fileNames: files.map((file) => `${file.name} (${Math.ceil(file.size / 1024)} KB)`),
       message: brief
     };
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email);
+    const validReference = !payload.referenceWebsite || /^https?:\/\/.+\..+/.test(payload.referenceWebsite);
 
-    if (payload.name.length < 2 || !payload.email.includes("@") || !payload.projectType || brief.length < 20) {
+    if (payload.name.length < 2 || !validEmail || !payload.projectType || brief.length < 20 || !validReference) {
       setStatus("error");
-      setMessage("Please add your name, a valid email, project type, and a project brief of at least 20 characters.");
+      setMessage("Please add your name, a valid email, project type, optional reference URL with https://, and a project brief of at least 20 characters.");
       return;
     }
 
@@ -84,6 +89,59 @@ export function ContactForm() {
 
   return (
     <form noValidate onSubmit={submitContact} className="panel grid gap-4 rounded-2xl p-5 sm:p-6">
+      <AnimatePresence>
+        {status === "success" ? (
+          <motion.div
+            className="fixed inset-0 z-50 grid place-items-center bg-[#020614]/82 p-4 backdrop-blur-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-success-title"
+          >
+            <motion.div
+              initial={{ y: 24, opacity: 0, scale: 0.96 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 16, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative w-full max-w-md rounded-2xl border border-emerald-300/25 bg-[#061026] p-6 text-center shadow-[0_34px_120px_rgba(0,0,0,0.5)]"
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  setStatus("idle");
+                  setMessage("");
+                }}
+                className="absolute right-4 top-4 grid size-9 place-items-center rounded-xl border border-line bg-white/[0.04] text-accent hover:text-text"
+                aria-label="Close success message"
+              >
+                <X size={16} />
+              </button>
+              <span className="mx-auto grid size-14 place-items-center rounded-2xl border border-emerald-300/30 bg-emerald-400/12 text-emerald-200">
+                <CheckCircle2 size={28} />
+              </span>
+              <h2 id="contact-success-title" className="mt-6 text-2xl font-semibold text-text">
+                Enquiry received.
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-accent">
+                {message || "ARYONIX will review your brief and respond with the next step."}
+              </p>
+              <Button
+                type="button"
+                className="mt-6 w-full"
+                onClick={() => {
+                  setStatus("idle");
+                  setMessage("");
+                }}
+              >
+                Continue
+              </Button>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-medium text-text">
           Name
@@ -184,17 +242,13 @@ export function ContactForm() {
         />
       </label>
 
-      {message ? (
+      {message && status === "error" ? (
         <div
           role="status"
           aria-live="polite"
-          className={`flex gap-3 rounded-xl border px-4 py-3 text-sm ${
-            status === "success"
-              ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-100"
-              : "border-red-400/30 bg-red-400/10 text-red-100"
-          }`}
+          className="flex gap-3 rounded-xl border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-100"
         >
-          {status === "success" ? <CheckCircle2 className="mt-0.5 shrink-0" size={17} /> : <AlertCircle className="mt-0.5 shrink-0" size={17} />}
+          <AlertCircle className="mt-0.5 shrink-0" size={17} />
           <span>{message}</span>
         </div>
       ) : null}

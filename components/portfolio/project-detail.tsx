@@ -19,7 +19,9 @@ export function ProjectDetail({ slug }: { slug: string }) {
         window.clearTimeout(timeout);
 
         if (response.ok) {
-          setProject(await response.json());
+          const data = await response.json();
+          const fallbackProject = getFallbackPortfolioProject(slug);
+          setProject(fallbackProject ?? data);
         }
       } catch {
         setProject(getFallbackPortfolioProject(slug));
@@ -49,7 +51,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
             <div className="mt-8 flex flex-wrap gap-3">
               {project.liveUrl ? (
                 <Button href={project.liveUrl}>
-                  Live Demo <ExternalLink className="ml-2" size={16} />
+                  Learn More <ExternalLink className="ml-2" size={16} />
                 </Button>
               ) : null}
               {project.githubUrl ? (

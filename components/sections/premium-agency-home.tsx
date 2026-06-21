@@ -1,13 +1,15 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
   Clock3,
   Code2,
+  Database,
   Gem,
+  HelpCircle,
   Layers3,
   MessageCircle,
   Sparkles,
@@ -17,7 +19,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { process as agencyProcess, projects, services, testimonials } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
@@ -51,20 +53,67 @@ const pricingPackages = [
   {
     name: "Starter Website",
     detail: "A focused launch package for founders and personal brands that need a premium first impression quickly.",
-    features: ["Landing Page", "Mobile Responsive", "Contact Form"],
+    features: ["Landing Page", "Mobile Responsive", "Contact Form", "Basic SEO"],
     bestFor: "Portfolio, campaign or early startup launch"
   },
   {
     name: "Business Website",
     detail: "A multi-page brand presence with search-ready structure, scalable content and business-grade controls.",
-    features: ["Multi-page Website", "SEO Setup", "Admin Panel"],
+    features: ["Multi-page Website", "SEO Setup", "Admin Panel", "Lead Capture"],
     bestFor: "Service businesses, agencies and growing brands"
   },
   {
-    name: "Custom Web Application",
-    detail: "A tailored product build for teams that need real workflows, authenticated users and backend systems.",
+    name: "Premium Custom Website",
+    detail: "A high-craft website system with custom sections, refined motion, CMS-ready structure and conversion-focused pages.",
+    features: ["Custom UI", "Advanced Animations", "CMS-ready Sections", "Conversion Strategy"],
+    bestFor: "Premium brands and serious launches"
+  },
+  {
+    name: "E-commerce Website",
+    detail: "A commerce-ready website experience shaped around product discovery, trust, checkout readiness and growth.",
+    features: ["Product Pages", "Cart Flow", "Payment-ready Structure", "Analytics Setup"],
+    bestFor: "Product brands and online stores"
+  },
+  {
+    name: "Custom Quote",
+    detail: "A flexible engagement for SaaS platforms, dashboards, portals and workflows that need a tailored technical scope.",
     features: ["Custom Features", "Database", "Authentication", "API Integration"],
-    bestFor: "SaaS, dashboards, portals and internal tools"
+    bestFor: "Web apps, portals and advanced systems"
+  }
+];
+
+const counters = [
+  { label: "Projects Completed", value: "12+", detail: "websites, tools and platform surfaces" },
+  { label: "Client Satisfaction", value: "100%", detail: "structured handoff and revision workflow" },
+  { label: "Years Experience", value: "2+", detail: "design, frontend and full-stack execution" },
+  { label: "Support Availability", value: "24/7", detail: "WhatsApp-first response channel" }
+];
+
+const trustBadges = [
+  { label: "Next.js", icon: Code2 },
+  { label: "React", icon: Sparkles },
+  { label: "TypeScript", icon: CheckCircle2 },
+  { label: "MongoDB", icon: Database },
+  { label: "Vercel", icon: Zap },
+  { label: "AWS", icon: Layers3 }
+];
+
+const faqs = [
+  {
+    question: "How fast can ARYONIX launch a website?",
+    answer: "A focused starter website can usually move quickly once content and scope are clear. Larger business websites, e-commerce builds and custom apps are scoped after discovery."
+  },
+  {
+    question: "Do you build only portfolio websites?",
+    answer: "No. ARYONIX now positions as a premium agency for business websites, custom web applications, dashboards, admin panels and launch-ready digital systems."
+  },
+  {
+    question: "Can you handle design and development together?",
+    answer: "Yes. The workflow covers strategy, UI/UX, responsive frontend, backend integrations, database workflows, QA and deployment support."
+  },
+  {
+    question: "Will my enquiry be visible in the admin dashboard?",
+    answer: "Yes. Enquiries are stored in MongoDB through the API and can be tracked inside the admin dashboard with status management."
   }
 ];
 
@@ -116,6 +165,36 @@ function ChromeFrame({ children, className = "" }: { children: React.ReactNode; 
       </div>
       {children}
     </div>
+  );
+}
+
+function AnimatedCounter({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const match = value.match(/^(\d+)(.*)$/);
+  const numericValue = match ? Number.parseInt(match[1], 10) : Number.NaN;
+  const suffix = match ? match[2] : "";
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView || Number.isNaN(numericValue)) return;
+
+    let frame = 0;
+    const totalFrames = 42;
+    const interval = window.setInterval(() => {
+      frame += 1;
+      const progress = Math.min(frame / totalFrames, 1);
+      setCount(Math.round(numericValue * (1 - Math.pow(1 - progress, 3))));
+      if (progress === 1) window.clearInterval(interval);
+    }, 24);
+
+    return () => window.clearInterval(interval);
+  }, [isInView, numericValue]);
+
+  return (
+    <span ref={ref}>
+      {Number.isNaN(numericValue) ? value : `${count}${suffix}`}
+    </span>
   );
 }
 
@@ -448,6 +527,67 @@ function TrustSection() {
   );
 }
 
+function CounterSection() {
+  return (
+    <section className="relative overflow-hidden py-20" id="results">
+      <div className="container-shell">
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {counters.map((item, index) => (
+            <motion.div
+              key={item.label}
+              variants={reveal}
+              initial="hidden"
+              whileInView="show"
+              viewport={sectionViewport}
+              transition={{ duration: 0.52, delay: index * 0.05 }}
+              className="bg-[#050b20]/95 p-6"
+            >
+              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-secondary">{item.label}</p>
+              <p className="mt-7 text-5xl font-semibold tracking-[-0.03em] text-text">
+                <AnimatedCounter value={item.value} />
+              </p>
+              <p className="mt-3 text-sm leading-6 text-accent">{item.detail}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrustBadgesSection() {
+  return (
+    <section className="relative overflow-hidden border-y border-line bg-white/[0.025] py-16" id="technology">
+      <div className="container-shell">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.34em] text-secondary">Trusted stack</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.02em] text-text md:text-5xl">
+              Built on reliable modern technology.
+            </h2>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {trustBadges.map((badge, index) => (
+              <motion.div
+                key={badge.label}
+                variants={reveal}
+                initial="hidden"
+                whileInView="show"
+                viewport={sectionViewport}
+                transition={{ duration: 0.45, delay: index * 0.04 }}
+                className="inline-flex min-h-14 items-center gap-3 rounded-2xl border border-line bg-white/[0.045] px-4 text-sm font-semibold text-text backdrop-blur-xl"
+              >
+                <badge.icon className="text-secondary" size={18} />
+                {badge.label}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
@@ -522,7 +662,7 @@ function PricingSection() {
           title="Simple packages for clear buying decisions."
           description="Start with the engagement level that matches your current business stage. Every package is scoped through a quote before work begins."
         />
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
           {pricingPackages.map((item, index) => (
             <motion.article
               key={item.name}
@@ -532,7 +672,7 @@ function PricingSection() {
               viewport={sectionViewport}
               transition={{ duration: 0.55, delay: index * 0.06 }}
               className={`rounded-2xl border p-6 backdrop-blur-xl ${
-                index === 1
+                index === 2
                   ? "border-secondary/45 bg-primary/[0.13] shadow-glow"
                   : "border-line bg-[#050b20]/88"
               }`}
@@ -612,6 +752,18 @@ function PortfolioSection() {
               </Link>
               <div className="p-6">
                 <p className="text-sm leading-7 text-accent">{project.description}</p>
+                <div className="mt-6 grid gap-3">
+                  {[
+                    ["Problem", project.problem],
+                    ["Solution", project.solution],
+                    ["Results", project.results]
+                  ].map(([label, value]) => (
+                    <div key={label} className="rounded-xl border border-line bg-white/[0.035] p-4">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-secondary">{label}</p>
+                      <p className="mt-2 text-sm leading-6 text-accent">{value}</p>
+                    </div>
+                  ))}
+                </div>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {project.stack.map((item) => (
                     <span key={item} className="rounded-full border border-secondary/20 bg-secondary/[0.06] px-3 py-1 text-xs text-accent">
@@ -620,11 +772,11 @@ function PortfolioSection() {
                   ))}
                 </div>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                  <Button href={`/portfolio/${project.slug}`} className="h-11">
-                    View Case Study <ArrowUpRight className="ml-2" size={16} />
+                  <Button href={project.live} className="h-11">
+                    Learn More <ArrowUpRight className="ml-2" size={16} />
                   </Button>
-                  <Button href={project.live} variant="secondary" className="h-11">
-                    Live Demo <ArrowUpRight className="ml-2" size={16} />
+                  <Button href={`/portfolio/${project.slug}`} variant="secondary" className="h-11">
+                    Case Study <ArrowUpRight className="ml-2" size={16} />
                   </Button>
                   <Button href={project.github} variant="secondary" className="h-11">
                     GitHub <Code2 className="ml-2" size={16} />
@@ -734,6 +886,67 @@ function TestimonialsSection() {
   );
 }
 
+function FaqSection() {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  return (
+    <section className="relative overflow-hidden py-28" id="faq">
+      <div className="container-shell">
+        <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
+          <SectionHeader
+            label="FAQ"
+            title="Clear answers before the first call."
+            description="The engagement is designed to feel calm, premium and practical from enquiry to launch."
+          />
+          <div className="grid gap-3">
+            {faqs.map((item, index) => {
+              const open = openIndex === index;
+
+              return (
+                <motion.div
+                  key={item.question}
+                  variants={reveal}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={sectionViewport}
+                  transition={{ duration: 0.45, delay: index * 0.04 }}
+                  className="overflow-hidden rounded-2xl border border-line bg-[#050b20]/88 backdrop-blur-xl"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(open ? -1 : index)}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-lg font-semibold text-text"
+                    aria-expanded={open}
+                  >
+                    <span>{item.question}</span>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl border border-secondary/25 bg-primary/12 text-secondary">
+                      {open ? <X size={16} /> : <HelpCircle size={16} />}
+                    </span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {open ? (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
+                      >
+                        <p className="border-t border-line px-5 py-5 text-sm leading-7 text-accent">
+                          {item.answer}
+                        </p>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CtaSection() {
   return (
     <section className="relative overflow-hidden py-28" id="contact">
@@ -776,12 +989,15 @@ export function PremiumAgencyHome() {
   return (
     <>
       <HeroSection />
+      <CounterSection />
       <TrustSection />
+      <TrustBadgesSection />
       <ServicesSection />
       <PricingSection />
       <PortfolioSection />
       <ProcessSection />
       <TestimonialsSection />
+      <FaqSection />
       <CtaSection />
     </>
   );
