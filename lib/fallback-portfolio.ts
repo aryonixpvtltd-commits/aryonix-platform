@@ -2,65 +2,92 @@ import type { PortfolioRecord } from "@/components/portfolio/portfolio-types";
 
 export const fallbackPortfolioProjects: PortfolioRecord[] = [
   {
-    id: "smart-health",
-    title: "Smart Health Portal",
-    slug: "smart-health-portal",
-    summary: "Diagnostic and safety portal with patient vitals, symptom screening and admin alerts.",
+    id: "student-toolkit",
+    title: "Student Toolkit",
+    slug: "student-toolkit",
+    summary: "Study planner, notes, tasks and academic utilities in one focused workspace.",
     description:
-      "Healthcare dashboard experience for patient safety checks, vitals review, symptom triage and admin monitoring.",
+      "A student productivity interface built around fast planning, useful academic utilities and a calm responsive experience for everyday study workflows.",
     challenge:
-      "Healthcare teams need fast, readable intake flows that separate safe checks from urgent alerts without overwhelming the user.",
+      "Students often jump between notes, planners, calculators and reminders, which makes their academic workflow fragmented.",
     solution:
-      "Aryonix designed a focused patient portal and admin command center with clear vitals inputs, symptom chips, risk states and alert views.",
+      "ARYONIX shaped a consolidated toolkit concept with clear modules for planning, notes and tasks, supported by a dark polished interface system.",
     impact:
-      "The demo shows a complete safety workflow from login to patient monitoring, making the product useful as a credible healthcare platform prototype.",
+      "The result presents a credible student-first product direction that can expand into reminders, dashboard widgets and academic utilities.",
     year: 2026,
     client: "Aryonix Lab",
-    category: { id: "healthcare", name: "Healthcare Platform", slug: "healthcare-platform" },
-    coverImage: "/portfolio/smart-health-01.png",
-    liveUrl: "/demos/smart-health-portal.html",
+    category: { id: "student-productivity", name: "Student Productivity", slug: "student-productivity" },
+    coverImage: "/portfolio/student-toolkit.svg",
+    liveUrl: "/demos/student-toolkit.html",
     githubUrl: "https://github.com/aryonixpvtltd-commits",
-    techStack: ["HTML", "CSS", "JavaScript", "Dashboard UX", "Responsive UI"],
-    screenshots: [
-      { url: "/portfolio/smart-health-01.png", alt: "Smart Health login screen" },
-      { url: "/portfolio/smart-health-02.png", alt: "Smart Health patient vitals screen" },
-      { url: "/portfolio/smart-health-03.png", alt: "Smart Health symptom selection screen" },
-      { url: "/portfolio/smart-health-04.png", alt: "Smart Health admin login screen" },
-      { url: "/portfolio/smart-health-05.png", alt: "Smart Health admin overview" },
-      { url: "/portfolio/smart-health-06.png", alt: "Smart Health patient management table" },
-      { url: "/portfolio/smart-health-07.png", alt: "Smart Health alerts screen" },
-      { url: "/portfolio/smart-health-08.png", alt: "Smart Health analytics screen" }
-    ]
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Responsive UI"],
+    screenshots: [{ url: "/portfolio/student-toolkit.svg", alt: "Student Toolkit project screenshot" }]
   },
   {
-    id: "power-machine",
-    title: "Power Machine Pro",
-    slug: "power-machine-pro",
-    summary: "Gym management platform with membership plans, attendance workflows and admin portals.",
+    id: "cgpa-calculator",
+    title: "CGPA Calculator",
+    slug: "cgpa-calculator",
+    summary: "Responsive academic calculator with clear semester inputs and instant CGPA output.",
     description:
-      "Fitness SaaS experience for live gym operations, memberships, attendance logs, member dashboards and admin control.",
+      "A clean calculator experience designed for students who need quick GPA and CGPA planning without interface clutter.",
     challenge:
-      "A gym needs a sharper operational product than a static website: live attendance, memberships, renewals and admin visibility.",
+      "Academic calculators often feel utilitarian and confusing on mobile, especially when forms expand across multiple semesters.",
     solution:
-      "Aryonix built a dark, high-energy SaaS interface with member and admin portals, pricing plans, attendance flows and operating dashboards.",
+      "ARYONIX designed a direct calculation flow with readable inputs, strong validation states and a polished results panel.",
     impact:
-      "The project demonstrates full product thinking for a real local business workflow, from marketing to operations and member self-service.",
+      "The interface makes academic grade planning easier to understand and more trustworthy on desktop and mobile.",
     year: 2026,
     client: "Aryonix Lab",
-    category: { id: "fitness-saas", name: "Fitness SaaS", slug: "fitness-saas" },
-    coverImage: "/portfolio/power-machine-01.png",
-    liveUrl: "/demos/powermachinepro.html",
+    category: { id: "education-tool", name: "Education Tool", slug: "education-tool" },
+    coverImage: "/portfolio/cgpa-calculator.svg",
+    liveUrl: "/demos/cgpa-calculator.html",
     githubUrl: "https://github.com/aryonixpvtltd-commits",
-    techStack: ["HTML", "CSS", "JavaScript", "Admin Portal", "Membership UX"],
-    screenshots: [
-      { url: "/portfolio/power-machine-01.png", alt: "Power Machine Pro homepage" },
-      { url: "/portfolio/power-machine-02.png", alt: "Power Machine Pro feature overview" },
-      { url: "/portfolio/power-machine-03.png", alt: "Power Machine Pro features grid" },
-      { url: "/portfolio/power-machine-04.png", alt: "Power Machine Pro dashboard workflow" },
-      { url: "/portfolio/power-machine-05.png", alt: "Power Machine Pro attendance log" },
-      { url: "/portfolio/power-machine-06.png", alt: "Power Machine Pro membership plans" },
-      { url: "/portfolio/power-machine-07.png", alt: "Power Machine Pro portals" }
-    ]
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Form UX"],
+    screenshots: [{ url: "/portfolio/cgpa-calculator.svg", alt: "CGPA Calculator project screenshot" }]
+  },
+  {
+    id: "aqi-dashboard",
+    title: "AQI Dashboard",
+    slug: "aqi-dashboard",
+    summary: "Civic-tech air-quality dashboard for city rankings, AQI categories and export-ready data.",
+    description:
+      "A data-rich dashboard concept for scanning city AQI, understanding pollution severity and comparing civic air-quality patterns.",
+    challenge:
+      "Public air-quality data needs to be readable, fast and responsible across both visual dashboards and dense mobile layouts.",
+    solution:
+      "ARYONIX structured a civic-tech experience with ranking cards, category context, comparison views and export-oriented workflows.",
+    impact:
+      "The dashboard direction supports practical environmental awareness with a premium product-level interface.",
+    year: 2026,
+    client: "Aryonix Lab",
+    category: { id: "civic-data", name: "Civic Data Dashboard", slug: "civic-data-dashboard" },
+    coverImage: "/portfolio/aqi-dashboard.svg",
+    liveUrl: "/demos/aqi-dashboard.html",
+    githubUrl: "https://github.com/aryonixpvtltd-commits",
+    techStack: ["Next.js", "TypeScript", "Recharts", "CSV Export", "Responsive Data UI"],
+    screenshots: [{ url: "/portfolio/aqi-dashboard.svg", alt: "AQI Dashboard project screenshot" }]
+  },
+  {
+    id: "aryonix-platform",
+    title: "Aryonix Platform",
+    slug: "aryonix-platform",
+    summary: "The ARYONIX production platform with public pages, admin workflows, uploads and enquiries.",
+    description:
+      "A premium agency platform combining marketing pages, portfolio management, Cloudinary uploads, MongoDB enquiries and protected admin operations.",
+    challenge:
+      "A premium agency needs more than a landing page: it needs an operational system for proof, leads and ongoing content management.",
+    solution:
+      "ARYONIX built a Next.js platform with public-facing trust sections, project management, upload workflows and admin enquiry tracking.",
+    impact:
+      "The platform gives the agency a stronger public presence and a practical backend for managing inbound business.",
+    year: 2026,
+    client: "ARYONIX",
+    category: { id: "agency-platform", name: "Agency Platform", slug: "agency-platform" },
+    coverImage: "/portfolio/aryonix-platform.svg",
+    liveUrl: "/",
+    githubUrl: "https://github.com/aryonixpvtltd-commits",
+    techStack: ["Next.js 15", "TypeScript", "MongoDB", "Prisma", "Cloudinary"],
+    screenshots: [{ url: "/portfolio/aryonix-platform.svg", alt: "Aryonix Platform project screenshot" }]
   }
 ];
 

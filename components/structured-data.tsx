@@ -18,17 +18,22 @@ export function StructuredData() {
       }
     ],
     makesOffer: [
-      "Web Design",
-      "Full Stack Development",
+      "Starter Website",
+      "Business Website",
+      "Custom Web Application",
       "UI/UX Design",
-      "Business Websites",
-      "Portfolio Websites",
-      "Website Maintenance"
+      "Website Maintenance",
+      "Admin Dashboard Development"
     ].map((name) => ({
       "@type": "Offer",
+      availability: "https://schema.org/InStock",
       itemOffered: {
         "@type": "Service",
-        name
+        name,
+        provider: {
+          "@type": "Organization",
+          name: siteConfig.name
+        }
       }
     }))
   };

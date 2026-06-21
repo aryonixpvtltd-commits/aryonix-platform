@@ -24,11 +24,13 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at 15% 8%, rgba(26, 111, 255, 0.22), transparent 30rem),
-    radial-gradient(circle at 84% 12%, rgba(77, 163, 255, 0.16), transparent 26rem),
+    linear-gradient(115deg, rgba(26, 111, 255, 0.16), transparent 28rem),
+    linear-gradient(245deg, rgba(77, 163, 255, 0.1), transparent 34rem),
     #04071a;
   color: #e8eeff;
   font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
@@ -50,9 +52,9 @@ body {
 
 .panel {
   border: 1px solid rgba(200, 212, 232, 0.16);
-  background: linear-gradient(180deg, rgba(8, 13, 36, 0.82), rgba(8, 13, 36, 0.58));
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(18px);
+  background: linear-gradient(180deg, rgba(8, 13, 36, 0.86), rgba(5, 10, 28, 0.68));
+  box-shadow: 0 28px 96px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(22px);
 }
 
 .text-balance {

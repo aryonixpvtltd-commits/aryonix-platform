@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AQI Dashboard | ARYONIX Demo</title>
+  <style>
+    body{margin:0;background:#04071a;color:#e8eeff;font-family:Inter,Arial,sans-serif}
+    main{min-height:100vh;padding:42px;display:grid;place-items:center;background:radial-gradient(circle at 80% 12%,rgba(77,163,255,.28),transparent 34rem)}
+    .shell{width:min(1180px,100%);border:1px solid rgba(200,212,232,.18);border-radius:18px;background:rgba(8,13,36,.82);padding:32px;box-shadow:0 30px 110px rgba(0,0,0,.45)}
+    h1{font-size:clamp(42px,7vw,86px);line-height:.96;margin:0 0 14px}p{color:#c8d4e8;line-height:1.7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}.card{border:1px solid rgba(200,212,232,.16);border-radius:14px;background:rgba(255,255,255,.045);padding:22px}.value{font-size:58px;font-weight:800}.chart{height:190px;border-radius:14px;border:1px solid rgba(200,212,232,.16);margin-top:18px;background:linear-gradient(145deg,rgba(26,111,255,.35),rgba(255,255,255,.02))}
+  </style>
+</head>
+<body><main><section class="shell"><h1>AQI Dashboard</h1><p>Civic air-quality intelligence with city rankings, AQI category context, comparison patterns and export-ready reporting.</p><div class="grid"><div class="card"><p>Average AQI</p><div class="value">142</div></div><div class="card"><p>Cities tracked</p><div class="value">50</div></div><div class="card"><p>Export ready</p><div class="value">CSV</div></div></div><div class="chart"></div></section></main></body>
+</html>

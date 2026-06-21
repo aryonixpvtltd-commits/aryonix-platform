@@ -149,74 +149,119 @@ export const services = [
 
 export const projects = [
   {
-    title: "Smart Health Portal",
-    category: "Healthcare Platform",
+    slug: "student-toolkit",
+    title: "Student Toolkit",
+    category: "Student Productivity",
     description:
-      "A diagnostic and safety portal with patient login, vitals capture, symptom screening, admin monitoring, patient management, alerts and health analytics.",
-    result: "Patient + admin workflows",
-    accent: "from-teal-300 to-cyan-700",
-    stack: ["HTML", "CSS", "JavaScript", "Dashboard UX", "Responsive UI"],
-    live: "/demos/smart-health-portal.html",
+      "A focused academic utility suite for planning study work, organizing notes, managing tasks and keeping student workflows in one clean interface.",
+    result: "Student workflow hub",
+    accent: "from-blue-300 to-cyan-700",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Responsive UI"],
+    live: "/demos/student-toolkit.html",
     github: "https://github.com/aryonixpvtltd-commits",
-    screenshot: "/portfolio/smart-health-01.png",
-    screenshots: [
-      "/portfolio/smart-health-01.png",
-      "/portfolio/smart-health-02.png",
-      "/portfolio/smart-health-03.png",
-      "/portfolio/smart-health-04.png",
-      "/portfolio/smart-health-05.png",
-      "/portfolio/smart-health-06.png",
-      "/portfolio/smart-health-07.png",
-      "/portfolio/smart-health-08.png"
-    ]
+    screenshot: "/portfolio/student-toolkit.svg",
+    screenshots: ["/portfolio/student-toolkit.svg"]
   },
   {
-    title: "Power Machine Pro",
-    category: "Fitness SaaS",
+    slug: "cgpa-calculator",
+    title: "CGPA Calculator",
+    category: "Education Tool",
     description:
-      "A gym management platform for membership plans, biometric-style attendance flows, live admin dashboards, member portals and operational reporting.",
-    result: "Live gym operations",
-    accent: "from-red-400 to-orange-700",
-    stack: ["HTML", "CSS", "JavaScript", "Admin Portal", "Membership UX"],
-    live: "/demos/powermachinepro.html",
+      "A responsive academic calculator with clear semester inputs, validation states and fast CGPA output for students who need quick grade planning.",
+    result: "Academic calculation flow",
+    accent: "from-sky-300 to-blue-700",
+    stack: ["React", "TypeScript", "Tailwind CSS", "Form UX"],
+    live: "/demos/cgpa-calculator.html",
     github: "https://github.com/aryonixpvtltd-commits",
-    screenshot: "/portfolio/power-machine-01.png",
-    screenshots: [
-      "/portfolio/power-machine-01.png",
-      "/portfolio/power-machine-02.png",
-      "/portfolio/power-machine-03.png",
-      "/portfolio/power-machine-04.png",
-      "/portfolio/power-machine-05.png",
-      "/portfolio/power-machine-06.png",
-      "/portfolio/power-machine-07.png"
-    ]
+    screenshot: "/portfolio/cgpa-calculator.svg",
+    screenshots: ["/portfolio/cgpa-calculator.svg"]
+  },
+  {
+    slug: "aqi-dashboard",
+    title: "AQI Dashboard",
+    category: "Civic Data Dashboard",
+    description:
+      "A civic-tech air-quality dashboard for ranking cities, reading AQI categories, comparing pollution patterns and exporting clean data views.",
+    result: "Civic analytics surface",
+    accent: "from-emerald-300 to-cyan-700",
+    stack: ["Next.js", "TypeScript", "Recharts", "CSV Export", "Responsive Data UI"],
+    live: "/demos/aqi-dashboard.html",
+    github: "https://github.com/aryonixpvtltd-commits",
+    screenshot: "/portfolio/aqi-dashboard.svg",
+    screenshots: ["/portfolio/aqi-dashboard.svg"]
+  },
+  {
+    slug: "aryonix-platform",
+    title: "Aryonix Platform",
+    category: "Agency Platform",
+    description:
+      "The ARYONIX production platform with premium public pages, admin portfolio management, Cloudinary uploads, enquiries and MongoDB-backed workflows.",
+    result: "Agency operating system",
+    accent: "from-blue-400 to-indigo-700",
+    stack: ["Next.js 15", "TypeScript", "MongoDB", "Prisma", "Cloudinary"],
+    live: "/",
+    github: "https://github.com/aryonixpvtltd-commits",
+    screenshot: "/portfolio/aryonix-platform.svg",
+    screenshots: ["/portfolio/aryonix-platform.svg"]
   }
 ];
 
 export const process = [
   {
+    label: "Discovery",
+    title: "Discovery and project clarity",
+    detail:
+      "We clarify the business goal, target audience, project scope, constraints and success criteria before design begins.",
+    icon: ShieldCheck,
+    outputs: ["Goals", "Audience", "Scope"]
+  },
+  {
+    label: "Strategy",
+    title: "Positioning and experience strategy",
+    detail:
+      "We define the page architecture, conversion path, content priority and product decisions that make the experience feel focused.",
+    icon: Gauge,
+    outputs: ["UX map", "Content priority", "Conversion path"]
+  },
+  {
     label: "Design",
-    title: "Strategy, UX and visual direction",
+    title: "Premium UI direction",
     detail:
-      "We translate the business goal into page architecture, user flows, content priority and a premium interface system.",
+      "We create a high-trust interface system with responsive typography, visual hierarchy, motion cues and reusable components.",
     icon: Palette,
-    outputs: ["UX map", "Visual system", "Responsive prototype"]
+    outputs: ["Visual system", "Responsive layouts", "Interaction states"]
   },
   {
-    label: "Develop",
-    title: "Full-stack production build",
+    label: "Development",
+    title: "Production implementation",
     detail:
-      "We build reusable components, API routes, authentication, dashboards and data models with performance budgets from day one.",
+      "We build reusable Next.js components, API routes, database workflows, admin surfaces and performance-minded frontend code.",
     icon: GitBranch,
-    outputs: ["Next.js app", "API layer", "Auth and data"]
+    outputs: ["Next.js app", "API layer", "Admin workflows"]
   },
   {
-    label: "Deploy",
-    title: "Launch, measure and improve",
+    label: "Testing",
+    title: "QA and responsive testing",
     detail:
-      "We ship the product, connect measurement, optimize Core Web Vitals and keep the system ready for future growth.",
+      "We test mobile, tablet, desktop, forms, modals, navigation, content states and deployment readiness before handoff.",
+    icon: Code2,
+    outputs: ["Responsive QA", "Form testing", "Build checks"]
+  },
+  {
+    label: "Launch",
+    title: "Deployment and SEO setup",
+    detail:
+      "We deploy the site, verify production behavior, tune metadata and make sure the final experience is ready for real visitors.",
     icon: Rocket,
-    outputs: ["Production launch", "SEO setup", "Optimization loop"]
+    outputs: ["Production launch", "SEO setup", "Performance pass"]
+  },
+  {
+    label: "Support",
+    title: "Ongoing support and iteration",
+    detail:
+      "We keep the platform healthy after launch with content updates, improvements, troubleshooting and growth-focused refinements.",
+    icon: Wrench,
+    outputs: ["Maintenance", "Iteration", "Support"]
   }
 ];
 

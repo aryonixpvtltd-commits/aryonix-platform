@@ -46,6 +46,10 @@ function optionalString(value: unknown) {
     : undefined;
 }
 
+function isSiteRelativePath(value: string) {
+  return value.startsWith("/") && !value.startsWith("//") && !value.includes("\\");
+}
+
 function validateUrl(value: unknown, field: string, errors: string[]) {
   const text = optionalString(value);
   if (!text) return undefined;
@@ -57,6 +61,17 @@ function validateUrl(value: unknown, field: string, errors: string[]) {
     errors.push(`${field} must be a valid URL.`);
     return undefined;
   }
+}
+
+function validateImageSource(value: unknown, field: string, errors: string[]) {
+  const text = optionalString(value);
+  if (!text) return undefined;
+
+  if (isSiteRelativePath(text)) {
+    return text;
+  }
+
+  return validateUrl(text, field, errors);
 }
 
 export function validateProjectPayload(input: unknown): {
@@ -89,7 +104,7 @@ export function validateProjectPayload(input: unknown): {
     errors.push("At least one technology is required.");
   }
 
-  const coverImage = validateUrl(body.coverImage, "Cover image", errors);
+  const coverImage = validateImageSource(body.coverImage, "Cover image", errors);
   const liveUrl = validateUrl(body.liveUrl, "Live demo", errors);
   const githubUrl = validateUrl(body.githubUrl, "GitHub", errors);
 
@@ -98,7 +113,7 @@ export function validateProjectPayload(input: unknown): {
         .map((item, index) => {
           if (typeof item !== "object" || item === null) return null;
           const screenshot = item as Record<string, unknown>;
-          const url = validateUrl(screenshot.url, `Screenshot ${index + 1}`, errors);
+          const url = validateImageSource(screenshot.url, `Screenshot ${index + 1}`, errors);
           if (!url) return null;
           return {
             url,

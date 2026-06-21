@@ -1,0 +1,20 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" fill="#04071A"/>
+  <path d="M0 0h1440v900H0z" fill="url(#bg)"/>
+  <rect x="92" y="78" width="1256" height="744" rx="30" fill="#071129" stroke="#274A7A"/>
+  <text x="150" y="190" fill="#E8EEFF" font-family="Inter, Arial" font-size="72" font-weight="800">AQI Dashboard</text>
+  <text x="154" y="244" fill="#9FB4D8" font-family="Inter, Arial" font-size="27">Civic air-quality intelligence with rankings, city comparison and export workflows.</text>
+  <rect x="154" y="326" width="360" height="176" rx="22" fill="#101C3D" stroke="#315B92"/>
+  <rect x="548" y="326" width="360" height="176" rx="22" fill="#101C3D" stroke="#315B92"/>
+  <rect x="942" y="326" width="260" height="416" rx="22" fill="#101C3D" stroke="#315B92"/>
+  <text x="190" y="390" fill="#4DA3FF" font-family="Inter, Arial" font-size="24" font-weight="700">Average AQI</text>
+  <text x="190" y="464" fill="#E8EEFF" font-family="Inter, Arial" font-size="74" font-weight="800">142</text>
+  <text x="584" y="390" fill="#4DA3FF" font-family="Inter, Arial" font-size="24" font-weight="700">Cities tracked</text>
+  <text x="584" y="464" fill="#E8EEFF" font-family="Inter, Arial" font-size="74" font-weight="800">50</text>
+  <text x="984" y="390" fill="#4DA3FF" font-family="Inter, Arial" font-size="24" font-weight="700">Risk Bands</text>
+  <rect x="154" y="548" width="754" height="194" rx="22" fill="#0D1836" stroke="#315B92"/>
+  <path d="M200 680 C300 560 370 650 460 590 C560 520 650 635 840 570" stroke="#4DA3FF" stroke-width="10" fill="none"/>
+  <rect x="984" y="440" width="150" height="14" rx="7" fill="#10B981"/><rect x="984" y="486" width="190" height="14" rx="7" fill="#FBBF24"/><rect x="984" y="532" width="110" height="14" rx="7" fill="#F97316"/><rect x="984" y="578" width="170" height="14" rx="7" fill="#EF4444"/>
+  <text x="154" y="790" fill="#C8D4E8" font-family="Inter, Arial" font-size="24">Next.js • TypeScript • CSV export • Data visualization</text>
+  <defs><radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1040 80) rotate(140) scale(900)"><stop stop-color="#1A6FFF" stop-opacity=".36"/><stop offset="1" stop-color="#04071A" stop-opacity="0"/></radialGradient></defs>
+</svg>

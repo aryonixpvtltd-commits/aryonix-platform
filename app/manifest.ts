@@ -9,6 +9,13 @@ export default function manifest(): MetadataRoute.Manifest {
     display: "standalone",
     background_color: "#04071A",
     theme_color: "#1A6FFF",
-    icons: []
+    icons: [
+      {
+        src: "/brand/aryonix-logo.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any"
+      }
+    ]
   };
 }

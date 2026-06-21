@@ -176,14 +176,18 @@ model ClientMessage {
 }
 
 model Enquiry {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String
-  company   String?
-  budget    String?
-  message   String
-  status    String   @default("NEW")
-  createdAt DateTime @default(now())
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  email            String
+  company          String?
+  projectType      String?
+  budget           String?
+  timeline         String?
+  referenceWebsite String?
+  fileNames        String[] @default([])
+  message          String
+  status           String   @default("NEW")
+  createdAt        DateTime @default(now())
 }
 
 model Testimonial {

@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "ARYONIX",
-  tagline: "DESIGN • DEVELOP • DEPLOY",
+  tagline: "DESIGN - DEVELOP - DEPLOY",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://aryonix.in",
   email: "aryonixpvtltd@gmail.com",
   whatsapp: "9359368382",
@@ -31,6 +31,7 @@ export const siteConfig = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/#pricing" },
     { label: "Portfolio", href: "/portfolio" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" }

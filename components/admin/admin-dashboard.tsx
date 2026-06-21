@@ -3,22 +3,22 @@
 import { FormEvent, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import {
-  Activity,
+  CheckCircle2,
   Edit3,
   FolderKanban,
-  Link as LinkIcon,
   MessageSquareText,
   Save,
-  Star,
   Trash2,
   UserPlus,
-  Users
+  Users,
+  XCircle
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { enquiryStatuses, formatEnquiryStatus } from "@/lib/enquiry-validation";
 
 type Row = Record<string, unknown> & { id: string };
 type FormState = Record<string, string | boolean | number>;
@@ -30,12 +30,12 @@ const emptyForms = {
   social: { platform: "", label: "", handle: "", href: "", published: true }
 };
 
-const adminStats: Array<[string, number, LucideIcon]> = [
-  ["Clients", 0, Users],
-  ["Enquiries", 0, MessageSquareText],
-  ["Testimonials", 0, Star],
-  ["Content Blocks", 0, Activity],
-  ["Social Links", 0, LinkIcon]
+const leadStats: Array<[string, string, LucideIcon]> = [
+  ["Total Enquiries", "ALL", MessageSquareText],
+  ["New Leads", "NEW", UserPlus],
+  ["Contacted Leads", "CONTACTED", Users],
+  ["Converted Leads", "CONVERTED", CheckCircle2],
+  ["Closed Leads", "CLOSED", XCircle]
 ];
 
 export function AdminDashboard() {
@@ -110,11 +110,17 @@ export function AdminDashboard() {
   }
 
   async function updateEnquiry(id: string, statusValue: string) {
-    await fetch(`/api/admin/enquiries/${id}`, {
+    const response = await fetch(`/api/admin/enquiries/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: statusValue })
     });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      setStatus(error.errors?.join(" ") ?? "Status update failed.");
+      return;
+    }
+    setStatus("Enquiry status updated.");
     await load();
   }
 
@@ -143,13 +149,10 @@ export function AdminDashboard() {
         {status ? <Card className="mt-8 p-4 text-sm text-accent">{status}</Card> : null}
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
-          {adminStats.map(([label, , Icon]) => {
-            const value =
-              label === "Clients" ? clients.length :
-              label === "Enquiries" ? enquiries.length :
-              label === "Testimonials" ? testimonials.length :
-              label === "Content Blocks" ? content.length :
-              social.length;
+          {leadStats.map(([label, statusKey, Icon]) => {
+            const value = statusKey === "ALL"
+              ? enquiries.length
+              : enquiries.filter((item) => String(item.status ?? "NEW") === statusKey).length;
 
             return (
             <Card key={String(label)} className="p-5">
@@ -221,15 +224,33 @@ export function AdminDashboard() {
                           <Badge className="border-line bg-white/[0.04] text-accent">
                             Company: {String(item.company ?? "Not provided")}
                           </Badge>
-                          <Badge className="border-line bg-white/[0.04] text-accent">
-                            Budget: {String(item.budget ?? "Not provided")}
-                          </Badge>
+                          {[
+                            ["Type", item.projectType],
+                            ["Budget", item.budget],
+                            ["Timeline", item.timeline],
+                            ["Reference", item.referenceWebsite]
+                          ].map(([label, value]) => value ? (
+                            <Badge key={String(label)} className="border-line bg-white/[0.04] text-accent">
+                              {String(label)}: {String(value)}
+                            </Badge>
+                          ) : null)}
                         </div>
                         <p className="mt-2 text-sm leading-6 text-accent">{String(item.message ?? "")}</p>
+                        {Array.isArray(item.fileNames) && item.fileNames.length ? (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {item.fileNames.map((file) => (
+                              <Badge key={String(file)} className="border-secondary/25 bg-secondary/[0.08] text-accent">
+                                Attachment: {String(file)}
+                              </Badge>
+                            ))}
+                          </div>
+                        ) : null}
                       </div>
                       <div className="flex gap-2">
-                        <select value={String(item.status ?? "NEW")} onChange={(event) => updateEnquiry(item.id, event.target.value)} className="h-10 rounded-xl border border-line bg-[#05091f] px-3 text-sm">
-                          {["NEW", "CONTACTED", "QUALIFIED", "CLOSED"].map((status) => <option key={status}>{status}</option>)}
+                        <select value={enquiryStatuses.includes(String(item.status ?? "NEW") as (typeof enquiryStatuses)[number]) ? String(item.status ?? "NEW") : "NEW"} onChange={(event) => updateEnquiry(item.id, event.target.value)} className="h-10 rounded-xl border border-line bg-[#05091f] px-3 text-sm">
+                          {enquiryStatuses.map((status) => (
+                            <option key={status} value={status}>{formatEnquiryStatus(status)}</option>
+                          ))}
                         </select>
                         <IconButton label="Delete" onClick={() => remove("/api/admin/enquiries", item.id)}><Trash2 size={15} /></IconButton>
                       </div>

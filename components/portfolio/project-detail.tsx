@@ -8,34 +8,27 @@ import type { PortfolioRecord } from "@/components/portfolio/portfolio-types";
 import { getFallbackPortfolioProject } from "@/lib/fallback-portfolio";
 
 export function ProjectDetail({ slug }: { slug: string }) {
-  const [project, setProject] = useState<PortfolioRecord | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [project, setProject] = useState<PortfolioRecord | null>(() => getFallbackPortfolioProject(slug));
 
   useEffect(() => {
     async function load() {
-      const fallback = getFallbackPortfolioProject(slug);
-
       try {
-        const response = await fetch(`/api/projects/${slug}`);
+        const controller = new AbortController();
+        const timeout = window.setTimeout(() => controller.abort(), 2200);
+        const response = await fetch(`/api/projects/${slug}`, { signal: controller.signal });
+        window.clearTimeout(timeout);
 
         if (response.ok) {
           setProject(await response.json());
-        } else {
-          setProject(fallback);
         }
       } catch {
-        setProject(fallback);
+        setProject(getFallbackPortfolioProject(slug));
       }
-
-      setLoading(false);
     }
 
+    setProject(getFallbackPortfolioProject(slug));
     load();
   }, [slug]);
-
-  if (loading) {
-    return <section className="min-h-screen pt-36"><div className="container-shell text-accent">Loading project...</div></section>;
-  }
 
   if (!project) {
     return <section className="min-h-screen pt-36"><div className="container-shell text-accent">Project not found.</div></section>;

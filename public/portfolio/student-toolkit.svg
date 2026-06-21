@@ -1,0 +1,20 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" fill="#04071A"/>
+  <path d="M0 0h1440v900H0z" fill="url(#bg)"/>
+  <rect x="110" y="96" width="1220" height="708" rx="28" fill="#071129" stroke="#274A7A"/>
+  <rect x="150" y="136" width="1140" height="72" rx="18" fill="#0D1836" stroke="#2A4E82"/>
+  <circle cx="186" cy="172" r="9" fill="#FF6B6B"/><circle cx="214" cy="172" r="9" fill="#FFD166"/><circle cx="242" cy="172" r="9" fill="#06D6A0"/>
+  <text x="150" y="284" fill="#E8EEFF" font-family="Inter, Arial" font-size="76" font-weight="800">Student Toolkit</text>
+  <text x="154" y="340" fill="#9FB4D8" font-family="Inter, Arial" font-size="28">Study planner, notes, tasks and academic utilities in one focused workspace.</text>
+  <rect x="154" y="412" width="328" height="270" rx="22" fill="#101C3D" stroke="#315B92"/>
+  <rect x="526" y="412" width="328" height="270" rx="22" fill="#101C3D" stroke="#315B92"/>
+  <rect x="898" y="412" width="328" height="270" rx="22" fill="#101C3D" stroke="#315B92"/>
+  <text x="190" y="478" fill="#4DA3FF" font-family="Inter, Arial" font-size="24" font-weight="700">Planner</text>
+  <text x="562" y="478" fill="#4DA3FF" font-family="Inter, Arial" font-size="24" font-weight="700">Notes</text>
+  <text x="934" y="478" fill="#4DA3FF" font-family="Inter, Arial" font-size="24" font-weight="700">Tasks</text>
+  <rect x="190" y="520" width="220" height="16" rx="8" fill="#2B79FF"/><rect x="190" y="560" width="250" height="16" rx="8" fill="#243A67"/><rect x="190" y="600" width="180" height="16" rx="8" fill="#243A67"/>
+  <rect x="562" y="520" width="210" height="16" rx="8" fill="#2B79FF"/><rect x="562" y="560" width="238" height="16" rx="8" fill="#243A67"/><rect x="562" y="600" width="165" height="16" rx="8" fill="#243A67"/>
+  <rect x="934" y="520" width="198" height="16" rx="8" fill="#2B79FF"/><rect x="934" y="560" width="248" height="16" rx="8" fill="#243A67"/><rect x="934" y="600" width="196" height="16" rx="8" fill="#243A67"/>
+  <text x="154" y="746" fill="#C8D4E8" font-family="Inter, Arial" font-size="24">Next.js • TypeScript • Tailwind CSS • Local productivity UX</text>
+  <defs><radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1000 40) rotate(131) scale(900)"><stop stop-color="#1A6FFF" stop-opacity=".42"/><stop offset="1" stop-color="#04071A" stop-opacity="0"/></radialGradient></defs>
+</svg>

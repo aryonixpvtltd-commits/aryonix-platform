@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/footer";
+import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 import { Navbar } from "@/components/navbar";
 import { StructuredData } from "@/components/structured-data";
 import { siteConfig } from "@/lib/site";
@@ -12,23 +13,30 @@ export const metadata: Metadata = {
     template: "%s | ARYONIX"
   },
   description:
-    "ARYONIX designs, develops and deploys premium websites, SaaS platforms and digital products built for growth.",
+    "ARYONIX designs, develops and deploys premium websites, business platforms and custom web applications for startups and growing businesses.",
   keywords: [
     "Aryonix",
     "premium web development",
+    "startup website agency",
+    "custom web application development",
+    "Next.js agency",
     "UI UX design",
     "full stack development",
     "business websites",
     "portfolio websites"
   ],
   authors: [{ name: "ARYONIX" }],
+  icons: {
+    icon: "/brand/aryonix-logo.png",
+    apple: "/brand/aryonix-logo.png"
+  },
   alternates: {
     canonical: siteConfig.url
   },
   openGraph: {
-    title: "ARYONIX | Design. Develop. Deploy.",
+    title: "ARYONIX | Premium Website and Web Application Agency",
     description:
-      "Premium technology studio for websites, SaaS platforms and digital products.",
+      "Premium digital agency for startup websites, business platforms, custom applications and conversion-focused product experiences.",
     url: siteConfig.url,
     siteName: "ARYONIX",
     type: "website",
@@ -52,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ARYONIX | Premium Web Development Studio",
     description:
-      "We engineer digital experiences that move businesses forward.",
+      "Premium websites and custom web applications for startups and growing businesses.",
     images: ["/brand/aryonix-banner.png"]
   }
 };
@@ -69,6 +77,7 @@ export default function RootLayout({
         <StructuredData />
         <Navbar />
         <main>{children}</main>
+        <FloatingWhatsApp />
         <Footer />
       </body>
     </html>
