@@ -14,6 +14,7 @@ const sectionNav = [
   { label: "Services", href: "/#services", section: "services" },
   { label: "Pricing", href: "/#pricing", section: "pricing" },
   { label: "Portfolio", href: "/#portfolio", section: "portfolio" },
+  { label: "Estimate", href: "/estimate", section: "estimate" },
   { label: "Process", href: "/#process", section: "process" },
   { label: "Contact", href: "/contact", section: "contact" }
 ];
@@ -33,6 +34,8 @@ export function Navbar() {
     if (pathname === "/contact") return "contact";
     if (pathname === "/portfolio" || pathname.startsWith("/portfolio/")) return "portfolio";
     if (pathname === "/services") return "services";
+    if (pathname === "/estimate") return "estimate";
+    if (pathname === "/analyzer") return "analyzer";
     if (pathname === "/about") return "about";
     return activeSection;
   }, [activeSection, pathname]);

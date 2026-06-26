@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/footer";
+import { AryonixChatbot } from "@/components/chatbot/aryonix-chatbot";
 import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 import { Navbar } from "@/components/navbar";
 import { StructuredData } from "@/components/structured-data";
@@ -80,6 +81,7 @@ export default function RootLayout({
         <StructuredData />
         <Navbar />
         <main>{children}</main>
+        <AryonixChatbot />
         <FloatingWhatsApp />
         <Footer />
       </body>

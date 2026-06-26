@@ -362,6 +362,8 @@ export const footerLinks = [
     links: [
       { label: "Services", href: "/services" },
       { label: "Portfolio", href: "/portfolio" },
+      { label: "Cost Estimator", href: "/estimate" },
+      { label: "Website Analyzer", href: "/analyzer" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" }
     ]
@@ -370,8 +372,8 @@ export const footerLinks = [
     title: "Operations",
     links: [
       { label: "Start Project", href: "/contact" },
-      { label: "Portfolio", href: "/portfolio" },
-      { label: "Services", href: "/services" },
+      { label: "Get Estimate", href: "/estimate" },
+      { label: "Analyze Website", href: "/analyzer" },
       { label: "Admin Portal", href: "/admin-login" }
     ]
   }

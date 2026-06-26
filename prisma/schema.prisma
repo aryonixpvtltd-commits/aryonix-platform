@@ -9,79 +9,16 @@ datasource db {
 
 enum Role {
   ADMIN
-  CLIENT
-}
-
-enum ProjectStatus {
-  DISCOVERY
-  DESIGN
-  DEVELOPMENT
-  REVIEW
-  DEPLOYED
 }
 
 model User {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  passwordHash  String?
-  role          Role            @default(CLIENT)
-  accounts      Account[]
-  sessions      Session[]
-  clientProjects ClientProject[]
-  invoices      Invoice[]
-  messages      ClientMessage[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-}
-
-model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String   @unique
-  userId       String   @db.ObjectId
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-model PasswordResetToken {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String
-  tokenHash String   @unique
-  expires   DateTime
-  used      Boolean  @default(false)
-  createdAt DateTime @default(now())
-
-  @@index([email])
-  @@index([expires])
+  name         String?
+  email        String   @unique
+  passwordHash String?
+  role         Role     @default(ADMIN)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Project {
@@ -133,50 +70,8 @@ model ProjectScreenshot {
   @@index([projectId])
 }
 
-model ClientProject {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String        @db.ObjectId
-  user        User          @relation(fields: [userId], references: [id])
-  title       String
-  status      ProjectStatus @default(DISCOVERY)
-  progress    Int           @default(0)
-  files       FileAsset[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-}
-
-model FileAsset {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  clientProjectId String        @db.ObjectId
-  clientProject   ClientProject @relation(fields: [clientProjectId], references: [id])
-  name            String
-  url             String
-  createdAt       DateTime      @default(now())
-}
-
-model Invoice {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id])
-  amount    Int
-  currency  String   @default("INR")
-  status    String   @default("PENDING")
-  dueDate   DateTime?
-  createdAt DateTime @default(now())
-}
-
-model ClientMessage {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subject   String
-  message   String
-  read      Boolean  @default(false)
-  createdAt DateTime @default(now())
-}
-
 model Enquiry {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
   name             String
   email            String
   company          String?
@@ -184,10 +79,120 @@ model Enquiry {
   budget           String?
   timeline         String?
   referenceWebsite String?
-  fileNames        String[] @default([])
+  fileNames        String[]  @default([])
   message          String
-  status           String   @default("NEW")
-  createdAt        DateTime @default(now())
+  status           String    @default("NEW")
+  notes            String?
+  followUpDate     DateTime?
+  history          String[]  @default([])
+  createdAt        DateTime  @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model ChatbotLead {
+  id                  String    @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  business            String?
+  phone               String
+  email               String
+  businessType        String
+  budget              String
+  timeline            String?
+  requirement         String
+  conversationSummary String?
+  leadScore           Int?
+  estimatedPackage    String?
+  requirements        String[]  @default([])
+  source              String    @default("WEBSITE_CHATBOT")
+  status              String    @default("NEW")
+  notes               String?
+  followUpDate        DateTime?
+  history             String[]  @default([])
+  createdAt           DateTime  @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model EstimatorLead {
+  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
+  name               String
+  businessName       String
+  email              String
+  phone              String
+  businessType       String
+  websiteType        String
+  pages              String
+  features           String[]
+  designLevel        String
+  requestedTimeline  String
+  statedBudget       String
+  estimatedPrice     String
+  estimatedTimeline  String
+  recommendedPackage String
+  techStack          String[]
+  status             String     @default("NEW")
+  notes              String?
+  followUpDate       DateTime?
+  history            String[]   @default([])
+  proposals          Proposal[]
+  createdAt          DateTime   @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model AnalyzerLead {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String
+  phone        String?
+  websiteUrl   String
+  designScore  Int
+  mobileScore  Int
+  seoScore     Int
+  speedScore   Int
+  suggestions  String[]
+  status       String    @default("NEW")
+  notes        String?
+  followUpDate DateTime?
+  history      String[]  @default([])
+  createdAt    DateTime  @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model Proposal {
+  id                 String        @id @default(auto()) @map("_id") @db.ObjectId
+  estimatorLeadId    String        @db.ObjectId
+  estimatorLead      EstimatorLead @relation(fields: [estimatorLeadId], references: [id], onDelete: Cascade)
+  clientName         String
+  businessName       String
+  recommendedPackage String
+  features           String[]
+  estimatedPrice     String
+  timeline           String
+  techStack          String[]
+  nextSteps          String[]
+  createdAt          DateTime      @default(now())
+
+  @@index([estimatorLeadId])
+}
+
+model AIKnowledge {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String
+  title     String
+  content   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([isActive])
 }
 
 model Testimonial {

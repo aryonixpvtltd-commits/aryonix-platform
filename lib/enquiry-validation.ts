@@ -15,9 +15,10 @@ export type EnquiryPayload = {
 export const enquiryStatuses = [
   "NEW",
   "CONTACTED",
-  "IN_DISCUSSION",
-  "CONVERTED",
-  "CLOSED"
+  "PROPOSAL_SENT",
+  "NEGOTIATION",
+  "WON",
+  "LOST"
 ] as const;
 
 export type EnquiryStatus = (typeof enquiryStatuses)[number];

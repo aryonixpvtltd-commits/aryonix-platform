@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
+import { staticKnowledgeEntries } from "../lib/knowledge/knowledge";
 
 function loadEnvFile(fileName: string, override = false) {
   const fullPath = path.join(process.cwd(), fileName);
@@ -49,6 +50,31 @@ async function main() {
   });
 
   console.log(`Default admin user ready: ${email}`);
+
+  let createdKnowledge = 0;
+
+  for (const entry of staticKnowledgeEntries) {
+    const existing = await prisma.aIKnowledge.findFirst({
+      where: {
+        type: entry.type,
+        title: entry.title
+      }
+    });
+
+    if (existing) continue;
+
+    await prisma.aIKnowledge.create({
+      data: {
+        type: entry.type,
+        title: entry.title,
+        content: entry.content,
+        isActive: true
+      }
+    });
+    createdKnowledge += 1;
+  }
+
+  console.log(`AI knowledge seed complete. Created ${createdKnowledge} new entries.`);
 }
 
 main()

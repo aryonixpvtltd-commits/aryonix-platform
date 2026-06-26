@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/services", "/portfolio", "/about", "/contact"];
+  const routes = ["", "/services", "/portfolio", "/estimate", "/analyzer", "/about", "/contact"];
   const projectRoutes = [
     "/portfolio/figma-react-assignment",
     "/portfolio/neural-city-aqi-dashboard",
